@@ -1,0 +1,736 @@
+<div id="bet_container_inner" class="grd-grid-12 grd-no-gutter-mobile">
+	<div class="content-tab-container grd-grid-7 grd-grid-mobile-12 grd-no-gutter-left grd-grid-phablet-12" id="betInputBox_container">
+		<div class="tab-menu">
+			<div class="mobile_menu_icon grd-grid-1 grd-hide grd-show-mobile grd-no-gutter-mobile grd-show-phablet" id="trade_tab_mobile_menu">
+				<a href="#tradeTabWrapper">
+					<div class="trade_menu_icon_container">
+						<div class="navicon-line"></div>
+						<div class="navicon-line"></div>
+						<div class="navicon-line"></div>
+					</div>
+				</a>
+			</div>
+			<div class="tab-menu-wrap grd-container" id="tradeTabWrapper"><ul id="betsTab" class="tm-ul"><li id="bets_tab_callput" class="tm-li active first"><span class="menu-wrap-a"><span class="menu-wrap-b"><a href="https://www.binary.com/d/trade.cgi?market=random&amp;form_name=risefall&amp;l=EN" class="tm-a first">Up/Down</a></span></span><ul class="tm-ul-2"><li id="risefall" class="tm-li-2 active first"><a href="https://www.binary.com/d/trade.cgi?market=random&amp;form_name=risefall&amp;l=EN" class="tm-a-2 first a-active">Rise/Fall</a></li><li id="higherlower" class="tm-li-2 last active"><a href="https://www.binary.com/d/trade.cgi?market=random&amp;form_name=higherlower&amp;l=EN" class="tm-a-2">Higher/Lower</a></li></ul></li><li id="bets_tab_touchnotouch" class="tm-li"><a href="https://www.binary.com/d/trade.cgi?market=random&amp;form_name=touchnotouch&amp;l=EN" class="tm-a">Touch/No Touch</a><ul class="tm-ul-2"><li id="touchnotouch" class="tm-li-2 first" style="display: none;"><a href="https://www.binary.com/d/trade.cgi?market=random&amp;form_name=touchnotouch&amp;l=EN" class="tm-a-2 first">Touch/No Touch</a></li></ul></li><li id="bets_tab_inout" class="tm-li"><a href="https://www.binary.com/d/trade.cgi?market=random&amp;form_name=endsinout&amp;l=EN" class="tm-a">In/Out</a><ul class="tm-ul-2"><li id="endsinout" class="tm-li-2 first"><a href="https://www.binary.com/d/trade.cgi?market=random&amp;form_name=endsinout&amp;l=EN" class="tm-a-2 first">Ends In/Out</a></li><li id="staysinout" class="tm-li-2 last"><a href="https://www.binary.com/d/trade.cgi?market=random&amp;form_name=staysinout&amp;l=EN" class="tm-a-2">Stays In/Goes Out</a></li></ul></li><li id="bets_tab_asian" class="tm-li"><a href="https://www.binary.com/d/trade.cgi?market=random&amp;form_name=asian&amp;l=EN" class="tm-a">Asians</a><ul class="tm-ul-2"><li id="asian" class="tm-li-2 first" style="display: none;"><a href="https://www.binary.com/d/trade.cgi?market=random&amp;form_name=asian&amp;l=EN" class="tm-a-2 first">Asians</a></li></ul></li><li id="bets_tab_digits" class="tm-li"><a href="https://www.binary.com/d/trade.cgi?market=random&amp;form_name=digits&amp;l=EN" class="tm-a">Digits</a><ul class="tm-ul-2"><li id="digits" class="tm-li-2 first" style="display: none;"><a href="https://www.binary.com/d/trade.cgi?market=random&amp;form_name=digits&amp;l=EN" class="tm-a-2 first">Digits</a></li></ul></li><li id="bets_tab_spreads" class="tm-li last"><a href="https://www.binary.com/d/trade.cgi?market=random&amp;form_name=spreads&amp;l=EN" class="tm-a">Spreads</a><ul class="tm-ul-2"><li id="spreads" class="tm-li-2 first" style="display: none;"><a href="https://www.binary.com/d/trade.cgi?market=random&amp;form_name=spreads&amp;l=EN" class="tm-a-2 first">Spreads</a></li></ul></li></ul></div>
+		</div>
+		<div class="tab-content grd-container">
+			<div class="tab-content-wrapper menu-has-sub-item" id="betInputBox"><div class="toggle-content"><form class="basicInputForm unbind_later" name="form0" action="https://www.binary.com/d/trade_price.cgi?l=EN" method="post" autocomplete="off">
+						<fieldset>
+							<div><span class="grd-grid-5 form_label">
+									<select id="submarket" name="submarket" class="selectMarketType unbind_later">
+										<option value="all" selected="selected">All</option>
+										<option value="random_index">Indices</option>
+										<option value="random_daily">Quotidians</option>
+										<option value="random_nightly">Nocturnes</option>
+									</select>
+								</span>
+								<span class="grd-grid-7">
+									<select id="bet_underlying" name="underlying_symbol" class="unbind_later">
+										<option class="random_index" value="R_100">Random 100 Index</option>
+										<option class="random_index" value="R_25">Random 25 Index</option>
+										<option class="random_index" value="R_50">Random 50 Index</option>
+										<option class="random_index" value="R_75">Random 75 Index</option>
+										<option class="random_daily" value="RDBEAR" selected="selected">Random Bear</option>
+										<option class="random_daily" value="RDBULL">Random Bull</option>
+										<option class="random_daily" value="RDMOON">Random Moon</option>
+										<option class="random_daily" value="RDSUN">Random Sun</option>
+										<option class="random_nightly" value="RDMARS">Random Mars</option>
+										<option class="random_nightly" value="RDVENUS">Random Venus</option>
+										<option class="random_nightly" value="RDYANG">Random Yang</option>
+										<option class="random_nightly" value="RDYIN">Random Yin</option>
+									</select>
+									<a class="pjaxload unicode-info-icon" id="randomtip" href="https://www.binary.com/get-started/random-markets?l=EN">ⓘ</a>
+								</span>
+								<input type="hidden" id="pip_size" value="0.0001">
+								<input type="hidden" id="decimal_places" value="4">
+								<input type="hidden" id="selected_submarket" value="all"></div>
+							<div>
+								<span class="grd-grid-5 form_label">
+									<label for="atleast"><abbr rel="tooltip" title="Rise/Fall contracts of less than 5 minutes duration are only available when you select &quot;Now&quot; as the start time.">Start time:</abbr></label>
+								</span>
+								<span class="grd-grid-7">
+									<select id="atleast" name="date_start" class="unbind_later">
+										<option value="now">Now</option>
+										<option value="1455610860">08:21</option>
+										<option value="1455611160">08:26</option>
+										<option value="1455611460">08:31</option>
+										<option value="1455611760">08:36</option>
+										<option value="1455612060">08:41</option>
+										<option value="1455612360">08:46</option>
+										<option value="1455612660">08:51</option>
+										<option value="1455612960">08:56</option>
+										<option value="1455613260">09:01</option>
+										<option value="1455613560">09:06</option>
+										<option value="1455613860">09:11</option>
+										<option value="1455614160">09:16</option>
+										<option value="1455614460">09:21</option>
+										<option value="1455614760">09:26</option>
+										<option value="1455615060">09:31</option>
+										<option value="1455615360">09:36</option>
+										<option value="1455615660">09:41</option>
+										<option value="1455615960">09:46</option>
+										<option value="1455616260">09:51</option>
+										<option value="1455616560">09:56</option>
+										<option value="1455616860">10:01</option>
+										<option value="1455617160">10:06</option>
+										<option value="1455617460">10:11</option>
+										<option value="1455617760">10:16</option>
+										<option value="1455618060">10:21</option>
+										<option value="1455618360">10:26</option>
+										<option value="1455618660">10:31</option>
+										<option value="1455618960">10:36</option>
+										<option value="1455619260">10:41</option>
+										<option value="1455619560">10:46</option>
+										<option value="1455619860">10:51</option>
+										<option value="1455620160">10:56</option>
+										<option value="1455620460">11:01</option>
+										<option value="1455620760">11:06</option>
+										<option value="1455621060">11:11</option>
+										<option value="1455621360">11:16</option>
+										<option value="1455621660">11:21</option>
+										<option value="1455621960">11:26</option>
+										<option value="1455622260">11:31</option>
+										<option value="1455622560">11:36</option>
+										<option value="1455622860">11:41</option>
+										<option value="1455623160">11:46</option>
+										<option value="1455623460">11:51</option>
+										<option value="1455623760">11:56</option>
+										<option value="1455624060">12:01</option>
+										<option value="1455624360">12:06</option>
+										<option value="1455624660">12:11</option>
+										<option value="1455624960">12:16</option>
+										<option value="1455625260">12:21</option>
+										<option value="1455625560">12:26</option>
+										<option value="1455625860">12:31</option>
+										<option value="1455626160">12:36</option>
+										<option value="1455626460">12:41</option>
+										<option value="1455626760">12:46</option>
+										<option value="1455627060">12:51</option>
+										<option value="1455627360">12:56</option>
+										<option value="1455627660">13:01</option>
+										<option value="1455627960">13:06</option>
+										<option value="1455628260">13:11</option>
+										<option value="1455628560">13:16</option>
+										<option value="1455628860">13:21</option>
+										<option value="1455629160">13:26</option>
+										<option value="1455629460">13:31</option>
+										<option value="1455629760">13:36</option>
+										<option value="1455630060">13:41</option>
+										<option value="1455630360">13:46</option>
+										<option value="1455630660">13:51</option>
+										<option value="1455630960">13:56</option>
+										<option value="1455631260">14:01</option>
+										<option value="1455631560">14:06</option>
+										<option value="1455631860">14:11</option>
+										<option value="1455632160">14:16</option>
+										<option value="1455632460">14:21</option>
+										<option value="1455632760">14:26</option>
+										<option value="1455633060">14:31</option>
+										<option value="1455633360">14:36</option>
+										<option value="1455633660">14:41</option>
+										<option value="1455633960">14:46</option>
+										<option value="1455634260">14:51</option>
+										<option value="1455634560">14:56</option>
+										<option value="1455634860">15:01</option>
+										<option value="1455635160">15:06</option>
+										<option value="1455635460">15:11</option>
+										<option value="1455635760">15:16</option>
+										<option value="1455636060">15:21</option>
+										<option value="1455636360">15:26</option>
+										<option value="1455636660">15:31</option>
+										<option value="1455636960">15:36</option>
+										<option value="1455637260">15:41</option>
+										<option value="1455637560">15:46</option>
+										<option value="1455637860">15:51</option>
+										<option value="1455638160">15:56</option>
+										<option value="1455638460">16:01</option>
+										<option value="1455638760">16:06</option>
+										<option value="1455639060">16:11</option>
+										<option value="1455639360">16:16</option>
+										<option value="1455639660">16:21</option>
+										<option value="1455639960">16:26</option>
+										<option value="1455640260">16:31</option>
+										<option value="1455640560">16:36</option>
+										<option value="1455640860">16:41</option>
+										<option value="1455641160">16:46</option>
+										<option value="1455641460">16:51</option>
+										<option value="1455641760">16:56</option>
+										<option value="1455642060">17:01</option>
+										<option value="1455642360">17:06</option>
+										<option value="1455642660">17:11</option>
+										<option value="1455642960">17:16</option>
+										<option value="1455643260">17:21</option>
+										<option value="1455643560">17:26</option>
+										<option value="1455643860">17:31</option>
+										<option value="1455644160">17:36</option>
+										<option value="1455644460">17:41</option>
+										<option value="1455644760">17:46</option>
+										<option value="1455645060">17:51</option>
+										<option value="1455645360">17:56</option>
+										<option value="1455645660">18:01</option>
+										<option value="1455645960">18:06</option>
+										<option value="1455646260">18:11</option>
+										<option value="1455646560">18:16</option>
+										<option value="1455646860">18:21</option>
+										<option value="1455647160">18:26</option>
+										<option value="1455647460">18:31</option>
+										<option value="1455647760">18:36</option>
+										<option value="1455648060">18:41</option>
+										<option value="1455648360">18:46</option>
+										<option value="1455648660">18:51</option>
+										<option value="1455648960">18:56</option>
+										<option value="1455649260">19:01</option>
+										<option value="1455649560">19:06</option>
+										<option value="1455649860">19:11</option>
+										<option value="1455650160">19:16</option>
+										<option value="1455650460">19:21</option>
+										<option value="1455650760">19:26</option>
+										<option value="1455651060">19:31</option>
+										<option value="1455651360">19:36</option>
+										<option value="1455651660">19:41</option>
+										<option value="1455651960">19:46</option>
+										<option value="1455652260">19:51</option>
+										<option value="1455652560">19:56</option>
+										<option value="1455652860">20:01</option>
+										<option value="1455653160">20:06</option>
+										<option value="1455653460">20:11</option>
+										<option value="1455653760">20:16</option>
+										<option value="1455654060">20:21</option>
+										<option value="1455654360">20:26</option>
+										<option value="1455654660">20:31</option>
+										<option value="1455654960">20:36</option>
+										<option value="1455655260">20:41</option>
+										<option value="1455655560">20:46</option>
+										<option value="1455655860">20:51</option>
+										<option value="1455656160">20:56</option>
+										<option value="1455656460">21:01</option>
+										<option value="1455656760">21:06</option>
+										<option value="1455657060">21:11</option>
+										<option value="1455657360">21:16</option>
+										<option value="1455657660">21:21</option>
+										<option value="1455657960">21:26</option>
+										<option value="1455658260">21:31</option>
+										<option value="1455658560">21:36</option>
+										<option value="1455658860">21:41</option>
+										<option value="1455659160">21:46</option>
+										<option value="1455659460">21:51</option>
+										<option value="1455659760">21:56</option>
+										<option value="1455660060">22:01</option>
+										<option value="1455660360">22:06</option>
+										<option value="1455660660">22:11</option>
+										<option value="1455660960">22:16</option>
+										<option value="1455661260">22:21</option>
+										<option value="1455661560">22:26</option>
+										<option value="1455661860">22:31</option>
+										<option value="1455662160">22:36</option>
+										<option value="1455662460">22:41</option>
+										<option value="1455662760">22:46</option>
+										<option value="1455663060">22:51</option>
+										<option value="1455663360">22:56</option>
+										<option value="1455663660">23:01</option>
+										<option value="1455663960">23:06</option>
+										<option value="1455664260">23:11</option>
+										<option value="1455664560">23:16</option>
+										<option value="1455664860">23:21</option>
+										<option value="1455665160">23:26</option>
+										<option value="1455665460">23:31</option>
+										<option value="1455665760">23:36</option>
+										<option value="1455666060">23:41</option>
+										<option value="1455666360">23:46</option>
+										<option value="1455666660">23:51</option>
+										<option value="1455667260">00:01 Wed</option>
+										<option value="1455667560">00:06 Wed</option>
+										<option value="1455667860">00:11 Wed</option>
+										<option value="1455668160">00:16 Wed</option>
+										<option value="1455668460">00:21 Wed</option>
+										<option value="1455668760">00:26 Wed</option>
+										<option value="1455669060">00:31 Wed</option>
+										<option value="1455669360">00:36 Wed</option>
+										<option value="1455669660">00:41 Wed</option>
+										<option value="1455669960">00:46 Wed</option>
+										<option value="1455670260">00:51 Wed</option>
+										<option value="1455670560">00:56 Wed</option>
+										<option value="1455670860">01:01 Wed</option>
+										<option value="1455671160">01:06 Wed</option>
+										<option value="1455671460">01:11 Wed</option>
+										<option value="1455671760">01:16 Wed</option>
+										<option value="1455672060">01:21 Wed</option>
+										<option value="1455672360">01:26 Wed</option>
+										<option value="1455672660">01:31 Wed</option>
+										<option value="1455672960">01:36 Wed</option>
+										<option value="1455673260">01:41 Wed</option>
+										<option value="1455673560">01:46 Wed</option>
+										<option value="1455673860">01:51 Wed</option>
+										<option value="1455674160">01:56 Wed</option>
+										<option value="1455674460">02:01 Wed</option>
+										<option value="1455674760">02:06 Wed</option>
+										<option value="1455675060">02:11 Wed</option>
+										<option value="1455675360">02:16 Wed</option>
+										<option value="1455675660">02:21 Wed</option>
+										<option value="1455675960">02:26 Wed</option>
+										<option value="1455676260">02:31 Wed</option>
+										<option value="1455676560">02:36 Wed</option>
+										<option value="1455676860">02:41 Wed</option>
+										<option value="1455677160">02:46 Wed</option>
+										<option value="1455677460">02:51 Wed</option>
+										<option value="1455677760">02:56 Wed</option>
+										<option value="1455678060">03:01 Wed</option>
+										<option value="1455678360">03:06 Wed</option>
+										<option value="1455678660">03:11 Wed</option>
+										<option value="1455678960">03:16 Wed</option>
+										<option value="1455679260">03:21 Wed</option>
+										<option value="1455679560">03:26 Wed</option>
+										<option value="1455679860">03:31 Wed</option>
+										<option value="1455680160">03:36 Wed</option>
+										<option value="1455680460">03:41 Wed</option>
+										<option value="1455680760">03:46 Wed</option>
+										<option value="1455681060">03:51 Wed</option>
+										<option value="1455681360">03:56 Wed</option>
+										<option value="1455681660">04:01 Wed</option>
+										<option value="1455681960">04:06 Wed</option>
+										<option value="1455682260">04:11 Wed</option>
+										<option value="1455682560">04:16 Wed</option>
+										<option value="1455682860">04:21 Wed</option>
+										<option value="1455683160">04:26 Wed</option>
+										<option value="1455683460">04:31 Wed</option>
+										<option value="1455683760">04:36 Wed</option>
+										<option value="1455684060">04:41 Wed</option>
+										<option value="1455684360">04:46 Wed</option>
+										<option value="1455684660">04:51 Wed</option>
+										<option value="1455684960">04:56 Wed</option>
+										<option value="1455685260">05:01 Wed</option>
+										<option value="1455685560">05:06 Wed</option>
+										<option value="1455685860">05:11 Wed</option>
+										<option value="1455686160">05:16 Wed</option>
+										<option value="1455686460">05:21 Wed</option>
+										<option value="1455686760">05:26 Wed</option>
+										<option value="1455687060">05:31 Wed</option>
+										<option value="1455687360">05:36 Wed</option>
+										<option value="1455687660">05:41 Wed</option>
+										<option value="1455687960">05:46 Wed</option>
+										<option value="1455688260">05:51 Wed</option>
+										<option value="1455688560">05:56 Wed</option>
+										<option value="1455688860">06:01 Wed</option>
+										<option value="1455689160">06:06 Wed</option>
+										<option value="1455689460">06:11 Wed</option>
+										<option value="1455689760">06:16 Wed</option>
+										<option value="1455690060">06:21 Wed</option>
+										<option value="1455690360">06:26 Wed</option>
+										<option value="1455690660">06:31 Wed</option>
+										<option value="1455690960">06:36 Wed</option>
+										<option value="1455691260">06:41 Wed</option>
+										<option value="1455691560">06:46 Wed</option>
+										<option value="1455691860">06:51 Wed</option>
+										<option value="1455692160">06:56 Wed</option>
+										<option value="1455692460">07:01 Wed</option>
+										<option value="1455692760">07:06 Wed</option>
+										<option value="1455693060">07:11 Wed</option>
+										<option value="1455693360">07:16 Wed</option>
+										<option value="1455693660">07:21 Wed</option>
+										<option value="1455693960">07:26 Wed</option>
+										<option value="1455694260">07:31 Wed</option>
+										<option value="1455694560">07:36 Wed</option>
+										<option value="1455694860">07:41 Wed</option>
+										<option value="1455695160">07:46 Wed</option>
+										<option value="1455695460">07:51 Wed</option>
+										<option value="1455695760">07:56 Wed</option>
+										<option value="1455696060">08:01 Wed</option>
+										<option value="1455696360">08:06 Wed</option>
+										<option value="1455696660">08:11 Wed</option>
+										<option value="1455696960">08:16 Wed</option>
+										<option value="1455697260">08:21 Wed</option>
+										<option value="1455697560">08:26 Wed</option>
+										<option value="1455697860">08:31 Wed</option>
+										<option value="1455698160">08:36 Wed</option>
+										<option value="1455698460">08:41 Wed</option>
+										<option value="1455698760">08:46 Wed</option>
+										<option value="1455699060">08:51 Wed</option>
+										<option value="1455699360">08:56 Wed</option>
+										<option value="1455699660">09:01 Wed</option>
+										<option value="1455699960">09:06 Wed</option>
+										<option value="1455700260">09:11 Wed</option>
+										<option value="1455700560">09:16 Wed</option>
+										<option value="1455700860">09:21 Wed</option>
+										<option value="1455701160">09:26 Wed</option>
+										<option value="1455701460">09:31 Wed</option>
+										<option value="1455701760">09:36 Wed</option>
+										<option value="1455702060">09:41 Wed</option>
+										<option value="1455702360">09:46 Wed</option>
+										<option value="1455702660">09:51 Wed</option>
+										<option value="1455702960">09:56 Wed</option>
+										<option value="1455703260">10:01 Wed</option>
+										<option value="1455703560">10:06 Wed</option>
+										<option value="1455703860">10:11 Wed</option>
+										<option value="1455704160">10:16 Wed</option>
+										<option value="1455704460">10:21 Wed</option>
+										<option value="1455704760">10:26 Wed</option>
+										<option value="1455705060">10:31 Wed</option>
+										<option value="1455705360">10:36 Wed</option>
+										<option value="1455705660">10:41 Wed</option>
+										<option value="1455705960">10:46 Wed</option>
+										<option value="1455706260">10:51 Wed</option>
+										<option value="1455706560">10:56 Wed</option>
+										<option value="1455706860">11:01 Wed</option>
+										<option value="1455707160">11:06 Wed</option>
+										<option value="1455707460">11:11 Wed</option>
+										<option value="1455707760">11:16 Wed</option>
+										<option value="1455708060">11:21 Wed</option>
+										<option value="1455708360">11:26 Wed</option>
+										<option value="1455708660">11:31 Wed</option>
+										<option value="1455708960">11:36 Wed</option>
+										<option value="1455709260">11:41 Wed</option>
+										<option value="1455709560">11:46 Wed</option>
+										<option value="1455709860">11:51 Wed</option>
+										<option value="1455710160">11:56 Wed</option>
+										<option value="1455710460">12:01 Wed</option>
+										<option value="1455710760">12:06 Wed</option>
+										<option value="1455711060">12:11 Wed</option>
+										<option value="1455711360">12:16 Wed</option>
+										<option value="1455711660">12:21 Wed</option>
+										<option value="1455711960">12:26 Wed</option>
+										<option value="1455712260">12:31 Wed</option>
+										<option value="1455712560">12:36 Wed</option>
+										<option value="1455712860">12:41 Wed</option>
+										<option value="1455713160">12:46 Wed</option>
+										<option value="1455713460">12:51 Wed</option>
+										<option value="1455713760">12:56 Wed</option>
+										<option value="1455714060">13:01 Wed</option>
+										<option value="1455714360">13:06 Wed</option>
+										<option value="1455714660">13:11 Wed</option>
+										<option value="1455714960">13:16 Wed</option>
+										<option value="1455715260">13:21 Wed</option>
+										<option value="1455715560">13:26 Wed</option>
+										<option value="1455715860">13:31 Wed</option>
+										<option value="1455716160">13:36 Wed</option>
+										<option value="1455716460">13:41 Wed</option>
+										<option value="1455716760">13:46 Wed</option>
+										<option value="1455717060">13:51 Wed</option>
+										<option value="1455717360">13:56 Wed</option>
+										<option value="1455717660">14:01 Wed</option>
+										<option value="1455717960">14:06 Wed</option>
+										<option value="1455718260">14:11 Wed</option>
+										<option value="1455718560">14:16 Wed</option>
+										<option value="1455718860">14:21 Wed</option>
+										<option value="1455719160">14:26 Wed</option>
+										<option value="1455719460">14:31 Wed</option>
+										<option value="1455719760">14:36 Wed</option>
+										<option value="1455720060">14:41 Wed</option>
+										<option value="1455720360">14:46 Wed</option>
+										<option value="1455720660">14:51 Wed</option>
+										<option value="1455720960">14:56 Wed</option>
+										<option value="1455721260">15:01 Wed</option>
+										<option value="1455721560">15:06 Wed</option>
+										<option value="1455721860">15:11 Wed</option>
+										<option value="1455722160">15:16 Wed</option>
+										<option value="1455722460">15:21 Wed</option>
+										<option value="1455722760">15:26 Wed</option>
+										<option value="1455723060">15:31 Wed</option>
+										<option value="1455723360">15:36 Wed</option>
+										<option value="1455723660">15:41 Wed</option>
+										<option value="1455723960">15:46 Wed</option>
+										<option value="1455724260">15:51 Wed</option>
+										<option value="1455724560">15:56 Wed</option>
+										<option value="1455724860">16:01 Wed</option>
+										<option value="1455725160">16:06 Wed</option>
+										<option value="1455725460">16:11 Wed</option>
+										<option value="1455725760">16:16 Wed</option>
+										<option value="1455726060">16:21 Wed</option>
+										<option value="1455726360">16:26 Wed</option>
+										<option value="1455726660">16:31 Wed</option>
+										<option value="1455726960">16:36 Wed</option>
+										<option value="1455727260">16:41 Wed</option>
+										<option value="1455727560">16:46 Wed</option>
+										<option value="1455727860">16:51 Wed</option>
+										<option value="1455728160">16:56 Wed</option>
+										<option value="1455728460">17:01 Wed</option>
+										<option value="1455728760">17:06 Wed</option>
+										<option value="1455729060">17:11 Wed</option>
+										<option value="1455729360">17:16 Wed</option>
+										<option value="1455729660">17:21 Wed</option>
+										<option value="1455729960">17:26 Wed</option>
+										<option value="1455730260">17:31 Wed</option>
+										<option value="1455730560">17:36 Wed</option>
+										<option value="1455730860">17:41 Wed</option>
+										<option value="1455731160">17:46 Wed</option>
+										<option value="1455731460">17:51 Wed</option>
+										<option value="1455731760">17:56 Wed</option>
+										<option value="1455732060">18:01 Wed</option>
+										<option value="1455732360">18:06 Wed</option>
+										<option value="1455732660">18:11 Wed</option>
+										<option value="1455732960">18:16 Wed</option>
+										<option value="1455733260">18:21 Wed</option>
+										<option value="1455733560">18:26 Wed</option>
+										<option value="1455733860">18:31 Wed</option>
+										<option value="1455734160">18:36 Wed</option>
+										<option value="1455734460">18:41 Wed</option>
+										<option value="1455734760">18:46 Wed</option>
+										<option value="1455735060">18:51 Wed</option>
+										<option value="1455735360">18:56 Wed</option>
+										<option value="1455735660">19:01 Wed</option>
+										<option value="1455735960">19:06 Wed</option>
+										<option value="1455736260">19:11 Wed</option>
+										<option value="1455736560">19:16 Wed</option>
+										<option value="1455736860">19:21 Wed</option>
+										<option value="1455737160">19:26 Wed</option>
+										<option value="1455737460">19:31 Wed</option>
+										<option value="1455737760">19:36 Wed</option>
+										<option value="1455738060">19:41 Wed</option>
+										<option value="1455738360">19:46 Wed</option>
+										<option value="1455738660">19:51 Wed</option>
+										<option value="1455738960">19:56 Wed</option>
+										<option value="1455739260">20:01 Wed</option>
+										<option value="1455739560">20:06 Wed</option>
+										<option value="1455739860">20:11 Wed</option>
+										<option value="1455740160">20:16 Wed</option>
+										<option value="1455740460">20:21 Wed</option>
+										<option value="1455740760">20:26 Wed</option>
+										<option value="1455741060">20:31 Wed</option>
+										<option value="1455741360">20:36 Wed</option>
+										<option value="1455741660">20:41 Wed</option>
+										<option value="1455741960">20:46 Wed</option>
+										<option value="1455742260">20:51 Wed</option>
+										<option value="1455742560">20:56 Wed</option>
+										<option value="1455742860">21:01 Wed</option>
+										<option value="1455743160">21:06 Wed</option>
+										<option value="1455743460">21:11 Wed</option>
+										<option value="1455743760">21:16 Wed</option>
+										<option value="1455744060">21:21 Wed</option>
+										<option value="1455744360">21:26 Wed</option>
+										<option value="1455744660">21:31 Wed</option>
+										<option value="1455744960">21:36 Wed</option>
+										<option value="1455745260">21:41 Wed</option>
+										<option value="1455745560">21:46 Wed</option>
+										<option value="1455745860">21:51 Wed</option>
+										<option value="1455746160">21:56 Wed</option>
+										<option value="1455746460">22:01 Wed</option>
+										<option value="1455746760">22:06 Wed</option>
+										<option value="1455747060">22:11 Wed</option>
+										<option value="1455747360">22:16 Wed</option>
+										<option value="1455747660">22:21 Wed</option>
+										<option value="1455747960">22:26 Wed</option>
+										<option value="1455748260">22:31 Wed</option>
+										<option value="1455748560">22:36 Wed</option>
+										<option value="1455748860">22:41 Wed</option>
+										<option value="1455749160">22:46 Wed</option>
+										<option value="1455749460">22:51 Wed</option>
+										<option value="1455749760">22:56 Wed</option>
+										<option value="1455750060">23:01 Wed</option>
+										<option value="1455750360">23:06 Wed</option>
+										<option value="1455750660">23:11 Wed</option>
+										<option value="1455750960">23:16 Wed</option>
+										<option value="1455751260">23:21 Wed</option>
+										<option value="1455751560">23:26 Wed</option>
+										<option value="1455751860">23:31 Wed</option>
+										<option value="1455752160">23:36 Wed</option>
+										<option value="1455752460">23:41 Wed</option>
+										<option value="1455752760">23:46 Wed</option>
+										<option value="1455753060">23:51 Wed</option>
+									</select>
+								</span>
+							</div>
+							<div id="duration_container">
+								<span class="grd-grid-5 form_label">
+									<select id="expiry_type" name="expiry_type" class="unbind_later">
+										<option value="duration">Duration</option>
+										<option value="endtime" disabled="">End Time</option>
+									</select>
+								</span>
+								<span id="expiry_type_duration" class="grd-grid-7 grd-parent">
+									<span class="grd-grid-4 grd-grid-mobile-12 grd-grid-phablet-12">
+										<input type="text" name="duration_amount" id="duration_amount" size="4" maxlength="5" value="5" class="unbind_later">
+									</span>
+									<span class="grd-grid-5 grd-grid-mobile-12 grd-grid-phablet-12">
+										<select id="duration_units" name="duration_units" class="unbind_later">
+
+
+
+
+
+
+
+											<option class="spot" value="h">hours</option><option class="spot" value="m">minutes</option><option class="spot" value="s">seconds</option><option class="spot" value="t">ticks</option></select>
+									</span>
+									<span class="grd-grid-3 grd-grid-mobile-12 grd-no-gutter-right grd-grid-phablet-12">
+										<span class="non_input h" style="display: none;"><abbr rel="tooltip" title="minimum available duration">min</abbr>: 1</span>
+										<span class="non_input m" style="display: none;"><abbr rel="tooltip" title="minimum available duration">min</abbr>: 1</span>
+										<span class="non_input s" style="display: none;"><abbr rel="tooltip" title="minimum available duration">min</abbr>: 15</span>
+										<span class="non_input t" style="display: inline;"><abbr rel="tooltip" title="minimum available duration">min</abbr>: 5</span>
+										<span class="forward_starting non_input h" style="display: none;"><abbr rel="tooltip" title="minimum available duration">min</abbr>: 1</span>
+										<span class="forward_starting non_input m" style="display: none;"><abbr rel="tooltip" title="minimum available duration">min</abbr>: 2</span>
+										<span class="forward_starting non_input s" style="display: none;"><abbr rel="tooltip" title="minimum available duration">min</abbr>: 120</span>
+									</span>
+								</span> 
+								<span id="expiry_type_endtime" class="grd-grid-7 grd-parent" style="display: none;">
+									<span class="grd-grid-5 grd-grid-mobile-12 grd-no-gutter-right grd-grid-phablet-12">
+										<input type="text" name="expiry_date" id="expiry_date" size="10" maxlength="11" value="">
+									</span>
+									<span class="grd-grid-7 grd-grid-mobile-12 grd-no-gutter-right grd-grid-phablet-12">
+										<input type="text" name="expiry_time" id="expiry_time" size="9" maxlength="10" value="">
+										<a id="market-closed-tip" class="unicode-info-icon" href="#"><abbr rel="tooltip" title="Close of trading day.">ⓘ</abbr></a>
+									</span>
+								</span>
+							</div>
+							<div class="non_input">
+								<span class="grd-grid-5 form_label">
+									<label for="spot">Spot:</label>
+								</span>
+								<span class="grd-grid-7 grd-parent">
+									<span class="grd-grid-5 grd-grid-mobile-12 grd-grid-phablet-12">
+										<span id="spot" class="price_moved_up">976.8455</span>
+									</span>
+									<span class="grd-grid-7 grd-grid-mobile-12 grd-grid-phablet-12">
+										<span id="spot_spark"><canvas style="display: inline-block; width: 12px; height: 21px; vertical-align: top;" width="12" height="21"></canvas></span>
+									</span>
+								</span>
+							</div>
+							<input type="hidden" name="pip_size" value="">
+							<div><span class="grd-grid-5 form_label">
+									<select id="amount_type" name="amount_type" class="unbind_later"> <option value="payout">Payout</option> <option value="stake">Stake</option> </select>
+								</span>
+								<span class="grd-grid-7 grd-parent">
+									<span class="grd-grid-3 grd-grid-mobile-12 grd-grid-phablet-12"> <select id="bet_currency" name="currency" class="unbind_later">    <option value="USD" selected="selected">USD</option>  </select> </span>
+									<span class="grd-grid-9 grd-grid-mobile-12 grd-grid-phablet-12">
+										<input id="amount" name="amount" size="7" value="100" maxlength="8" class="unbind_later">
+									</span>
+							</span></div>
+							<div></div>
+							<input type="hidden" name="barrier_type" value="relative" id="barrier_type">
+							<input type="hidden" name="market" value="random">
+							<input type="hidden" name="showohlc" value="yes">
+							<input type="hidden" name="controller_action" value="price_box">
+							<input type="hidden" name="form_name" value="risefall">
+							<input type="hidden" name="form_parent" value="callput">
+							<input type="hidden" name="extratab" value="">
+							<input type="hidden" name="t" value="%PREFIX%">
+							<div id="submit" class="form_button">
+								<img id="hourglass" style="display:none;" src="https://static.binary.com/images/common/hourglass_1.gif">
+								<span class="button">
+									<button type="submit" id="bet_calculate" class="button" value="Get Prices">
+										Get Prices
+									</button>
+								</span>
+							</div>
+						</fieldset>
+			</form></div></div>
+		</div>
+	</div>
+	<div id="bet_calculation_container" class="grd-grid-5 grd-grid-mobile-12 grd-grid-phablet-12">
+		<div class="rbox-lowpad bet_pricebox_wrapper" style="display: block;">
+			<div id="staking_context" style="display:none">
+				<div id="payout_min">0.7</div>
+				<div id="payout_max">100000</div>
+				<div id="payout_err"><p>Payout must be between 0.70 and 100,000.</p></div>
+				<div id="stake_min">0.35</div>
+				<div id="stake_max">100000</div>
+				<div id="stake_err"><p>Stake must be between 0.35 and 100,000.</p></div>
+				<div id="payout">100</div>
+			</div>
+			<div style="display:none"><br>
+				<div id="stream_channel">T_CALL_RDBEAR_5t_S0P_c_USD_EN</div>
+			</div>
+			<div class="price_box price_box_first">
+				<div class="rbox">
+					<div class="rbox-wrap">
+						<div class="rbox-heading">
+							<h4 class="higher">higher</h4>
+						</div>
+						<div id="bet_cost_container" class="rbox-lowpad">
+							<div id="amount_for_10" class="bet_cost div_wrapper default">
+								<div class="div_wrapper default stylized_price"><span class="stylized_currency">USD&nbsp;</span><span id="units_for_10" class="stylized_units">0</span><span id="cents_for_10" class="stylized_cents">.51</span></div>
+							</div>
+							<div class="bet_description">USD 1.00 payout if Random Bear after 5 ticks is strictly higher than entry spot.</div>
+							<div class="bet-buy-button">
+								<div id="bet_cal_buy" class="div_wrapper default" style="display: block;">
+									<form class="orderform" id="orderform_10" name="orderform" action="https://vr-deal01.binary.com/d/trade.cgi?l=EN" method="post" autocomplete="off">
+										<input type="hidden" name="display_id" value="10">
+										<input type="hidden" name="H" value="S0P">
+										<input type="hidden" name="type" value="CALL">
+										<input type="hidden" name="underlying_symbol" value="RDBEAR">
+										<input type="hidden" name="time" value="5t">
+										<input type="hidden" name="currency" value="USD">
+										<input type="hidden" name="amount_type" value="payout">
+										<input type="hidden" name="payout" value="1">
+										<input type="hidden" name="prob" value="0.506927213974921">
+										<input type="hidden" name="opposite_prob" value="0.494927213974921">
+										<input type="hidden" name="price" value="0.51">
+										<input type="hidden" name="barrier_type" value="relative">
+										<input type="hidden" name="id" value="4D667BF8-D485-11E5-B3A5-56E570EACD95">
+										<input type="hidden" name="expiry_type" value="duration">
+										<input type="hidden" name="controller_action" value="buy">
+										<input type="hidden" name="qty" value="1">
+										<input type="hidden" name="comment" value=" ">
+										<input type="hidden" name="batch" value="no">
+										<div class="form_button">
+											<span class="button" style="display: inline;"><button name="btn_buybet_10" class="button buy_bet_button unbind_later" type="submit" value="Purchase">Purchase</button></span>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="bet-error-box" style="display: none;"><p>Payout must be between 0.70 and 100,000.</p></div>
+						<div class="bet_return">
+							<span class="non_input">
+								Net profit: USD
+								<span id="id_10_profit">0.49</span>
+								| Return:
+								<span id="id_10_roi">96</span>%
+							</span>
+						</div>
+						<span class="tl">&nbsp;</span><span class="tr">&nbsp;</span><span class="bl">&nbsp;</span><span class="br">&nbsp;</span>
+					</div>
+				</div>
+				<a id="sendBetUrlLink" href="https://www.binary.com/d/trade.cgi?market=random&amp;time=5t&amp;form_name=risefall&amp;expiry_type=duration&amp;amount_type=payout&amp;H=S0P&amp;currency=USD&amp;underlying_symbol=RDBEAR&amp;amount=100&amp;date_start=now&amp;type=CALL&amp;L=S0P&amp;l=EN" class="invisible">https://www.binary.com/d/trade.cgi?market=random&amp;time=5t&amp;form_name=risefall&amp;expiry_type=duration&amp;amount_type=payout&amp;H=S0P¤cy=USD&amp;underlying_symbol=RDBEAR&amp;amount=100&amp;date_start=now&amp;type=CALL&amp;L=S0P&amp;l=EN</a>
+			</div><div class="price_box price_box_last">
+				<div class="rbox">
+					<div class="rbox-wrap">
+						<div class="rbox-heading">
+							<h4 class="lower">lower</h4>
+						</div>
+						<div id="bet_cost_container" class="rbox-lowpad">
+							<div id="amount_for_20" class="bet_cost div_wrapper default">
+								<div class="div_wrapper default stylized_price"><span class="stylized_currency">USD&nbsp;</span><span id="units_for_20" class="stylized_units">0</span><span id="cents_for_20" class="stylized_cents">.51</span></div>
+							</div>
+							<div class="bet_description">USD 1.00 payout if Random Bear after 5 ticks is strictly lower than entry spot.</div>
+							<div class="bet-buy-button">
+								<div id="bet_cal_buy" class="div_wrapper default" style="display: block;">
+									<form class="orderform" id="orderform_20" name="orderform" action="https://vr-deal01.binary.com/d/trade.cgi?l=EN" method="post" autocomplete="off">
+										<input type="hidden" name="display_id" value="20">
+										<input type="hidden" name="H" value="S0P">
+										<input type="hidden" name="type" value="PUT">
+										<input type="hidden" name="underlying_symbol" value="RDBEAR">
+										<input type="hidden" name="time" value="5t">
+										<input type="hidden" name="currency" value="USD">
+										<input type="hidden" name="amount_type" value="payout">
+										<input type="hidden" name="payout" value="1">
+										<input type="hidden" name="prob" value="0.513072784859214">
+										<input type="hidden" name="opposite_prob" value="0.501072784859214">
+										<input type="hidden" name="price" value="0.51">
+										<input type="hidden" name="barrier_type" value="relative">
+										<input type="hidden" name="id" value="4D6B72DE-D485-11E5-B3A5-56E570EACD95">
+										<input type="hidden" name="expiry_type" value="duration">
+										<input type="hidden" name="controller_action" value="buy">
+										<input type="hidden" name="qty" value="1">
+										<input type="hidden" name="comment" value=" ">
+										<input type="hidden" name="batch" value="no">
+										<div class="form_button">
+											<span class="button" style="display: inline;"><button name="btn_buybet_20" class="button buy_bet_button unbind_later" type="submit" value="Purchase">Purchase</button></span>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="bet-error-box" style="display: none;"><p>Payout must be between 0.70 and 100,000.</p></div>
+						<div class="bet_return">
+							<span class="non_input">
+								Net profit: USD
+								<span id="id_20_profit">0.49</span>
+								| Return:
+								<span id="id_20_roi">96</span>%
+							</span>
+						</div>
+						<span class="tl">&nbsp;</span><span class="tr">&nbsp;</span><span class="bl">&nbsp;</span><span class="br">&nbsp;</span>
+					</div>
+				</div>
+				<a id="sendBetUrlLink" href="https://www.binary.com/d/trade.cgi?market=random&amp;time=5t&amp;form_name=risefall&amp;expiry_type=duration&amp;amount_type=payout&amp;H=S0P&amp;currency=USD&amp;underlying_symbol=RDBEAR&amp;amount=100&amp;date_start=now&amp;type=CALL&amp;L=S0P&amp;l=EN" class="invisible">https://www.binary.com/d/trade.cgi?market=random&amp;time=5t&amp;form_name=risefall&amp;expiry_type=duration&amp;amount_type=payout&amp;H=S0P¤cy=USD&amp;underlying_symbol=RDBEAR&amp;amount=100&amp;date_start=now&amp;type=CALL&amp;L=S0P&amp;l=EN</a>
+		</div></div>
+	</div>
+</div>

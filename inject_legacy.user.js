@@ -22,7 +22,7 @@
 		duration_units: "#duration_units",
 		amount_type: "#amount_type",
 		bet_underlying: "#bet_underlying",
-
+		spot: "#spot",
 	};
 
 	var dummyNewPage;
@@ -85,25 +85,46 @@
 		}
 	};
 
-	var addSelectRedirection = function addSelectRedirection(legacySelector, newElement){
+	var addEventRedirection = function addEventRedirection(eventName, legacySelector, newElement){
 		$(legacySelector)
-			.change(function (event) {
+			.on(eventName, function (event) {
 				event.preventDefault();
 				newElement.val(event.target.value);
 				newElement[0].dispatchEvent(new Event('change'));
 			});
 		newElement
-			.change(function (event) {
+			.on(eventName, function (event) {
 				$(legacySelector).val(event.target.value);
 			});
 	};
 
+	var syncElement = function syncElement(eventType, legacySelector, newSelector){
+		var newElement = $(dummyNewPage[0].contentDocument)
+			.find(newSelector);
+		$(legacySelector).val(newElement.val());
+		addEventRedirection(eventType, legacySelector, newElement);
+	};
+
 	var elementShapes = {
 		underlying: function underlying() {
-			var newUnderlying = $(dummyNewPage[0].contentDocument)
-				.find('#underlying');
-			$(selectors.bet_underlying).val('R_100');
-			addSelectRedirection(selectors.bet_underlying, newUnderlying);
+			syncElement('change', selectors.bet_underlying, '#underlying');
+		},
+		amount: function amount() {
+			syncElement('input', selectors.amount, '#amount');
+		},
+		duration_amount: function duration_amount() {
+			syncElement('input', selectors.duration_amount, '#duration_amount');
+		},
+		amount_type: function amount_type() {
+			syncElement('change', selectors.amount_type, '#amount_type');
+		},
+		spot: function spot() {
+			var newElement = $(dummyNewPage[0].contentDocument)
+				.find('#spot');
+			addObserver(newElement[0], {childList: true}, function callback(){
+				$(selectors.spot).text(newElement.text());
+				$(selectors.spot).attr('class', newElement.attr('class'));
+			});
 		},
 	};
 

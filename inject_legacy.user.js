@@ -55,7 +55,7 @@
 		dummyNewPage = $('#dummyNewPage');
 	};
 
-	var onPageReady = function onPageReady(condition, callback) {
+	var onReady = function onReady(condition, callback) {
 		var intervalID = setInterval(function () {
 			if (condition()) {
 				clearInterval(intervalID);
@@ -85,6 +85,34 @@
 		}
 	};
 
+	var addSelectRedirection = function addSelectRedirection(legacySelector, newElement){
+		$(legacySelector)
+			.change(function (event) {
+				event.preventDefault();
+				newElement.val(event.target.value);
+				newElement[0].dispatchEvent(new Event('change'));
+			});
+		newElement
+			.change(function (event) {
+				$(legacySelector).val(event.target.value);
+			});
+	};
+
+	var elementShapes = {
+		underlying: function underlying() {
+			var newUnderlying = $(dummyNewPage[0].contentDocument)
+				.find('#underlying');
+			$(selectors.bet_underlying).val('R_100');
+			addSelectRedirection(selectors.bet_underlying, newUnderlying);
+		},
+	};
+
+	var updateElements = function updateElements() {
+		Object.keys(elementShapes).forEach(function(element){
+			elementShapes[element]();
+		});
+	};
+
 	var addClickRedirection = function addClickRedirection(legacySelector, newElement) {
 		$(legacySelector)
 			.click(function (event) {
@@ -108,12 +136,11 @@
 	};
 
 	var bindings = [
-		function () {
+		function addPurchaseTop() {
 			var purchase_button_top = $(dummyNewPage[0].contentDocument)
 				.find('#purchase_button_top');
 			addClickRedirection(selectors.btn_buybet_10, purchase_button_top);
 			addObserver(purchase_button_top[0], mutationConfig, function (mutations) {
-				console.log('mutations');
 				if (purchase_button_top.css('display') === 'none') {
 					$('.price_box_first #bet_cal_buy')
 						.css('display', 'none');
@@ -123,7 +150,7 @@
 				}
 			});
 		},
-		function () {
+		function addPurchaseBottom() {
 			var purchase_button_bottom = $(dummyNewPage[0].contentDocument)
 				.find('#purchase_button_bottom');
 			addClickRedirection(selectors.btn_buybet_20, purchase_button_bottom);
@@ -147,10 +174,11 @@
 
 	var injectLegacyElements = function injectLegacyElements() {
 		addLegacyElements();
+		updateElements();
 		addTwoWayBindings();
 	};
 
-	onPageReady(function () {
+	onReady(function () {
 		var body = $('body');
 		if (body.length > 0) {
 			return true;
@@ -161,7 +189,7 @@
 		removeAllHtml();
 		addDummyNewPage();
 
-		onPageReady(function () {
+		onReady(function () {
 			var progress = dummyNewPage.contents()
 				.find('#trading_init_progress');
 			if (progress.css('display') === 'none') {
@@ -170,7 +198,20 @@
 				return false;
 			}
 		}, function () {
-			injectLegacyElements();
+			var contract_markets = dummyNewPage.contents().find('#contract_markets');
+			contract_markets.val('random');
+			contract_markets[0].dispatchEvent(new Event('change'));
+			onReady(function () {
+				var underlying = dummyNewPage.contents()
+					.find('#underlying>option:nth-child(1)');
+				if ( underlying.text().indexOf('Random') > -1 ) {
+					return true;
+				} else {
+					return false;
+				}
+			}, function () {
+				injectLegacyElements();
+			});
 		});
 
 	});

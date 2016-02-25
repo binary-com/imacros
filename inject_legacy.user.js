@@ -126,6 +126,13 @@
 				$(selectors.spot).attr('class', newElement.attr('class'));
 			});
 		},
+		a: function a() {
+			var newElement = $(dummyNewPage[0].contentDocument)
+				.find('a').filter(function(index) { return $(this).text() === "x"; });
+			$('a').filter(function(index) { return $(this).text() === "x"; }).click(function(){
+				newElement[0].click();
+			});
+		},
 	};
 
 	var updateElements = function updateElements() {

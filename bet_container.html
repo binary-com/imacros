@@ -732,5 +732,68 @@
 				</div>
 				<a id="sendBetUrlLink" href="https://www.binary.com/d/trade.cgi?market=random&amp;time=5t&amp;form_name=risefall&amp;expiry_type=duration&amp;amount_type=payout&amp;H=S0P&amp;currency=USD&amp;underlying_symbol=RDBEAR&amp;amount=100&amp;date_start=now&amp;type=CALL&amp;L=S0P&amp;l=EN" class="invisible">https://www.binary.com/d/trade.cgi?market=random&amp;time=5t&amp;form_name=risefall&amp;expiry_type=duration&amp;amount_type=payout&amp;H=S0P¤cy=USD&amp;underlying_symbol=RDBEAR&amp;amount=100&amp;date_start=now&amp;type=CALL&amp;L=S0P&amp;l=EN</a>
 		</div></div>
+		<div style="height: 100%;" id="buy_confirm_container" class="trade_confirm_container ajax_response"><a style="cursor: pointer;" class="close unbind_later">x</a><div><div class="bet_confirm_wrapper">
+					<h4 id="bet-confirm-header">This contract won</h4>
+					<p id="bet-confirm-exp">You have purchased the following contract:</p>
+
+					<div class="bet_confirm_desc">
+						USD 100.00 payout if Random Bear after 5 ticks is strictly higher than entry spot.
+					</div>
+
+					<div style="display: none;" id="confirmation_table" class="grd-parent grd-grid-12 grd-row-padding">
+						<span class="grd-grid-4 grd-no-col-padding standin">
+							<span class="grd-grid-12 grd-no-col-padding standin first_label">Potential Payout</span>
+							<span class="grd-grid-12 grd-with-top-padding standin first_value">100.00</span>
+						</span>
+						<span class="grd-grid-4 grd-no-col-padding standout with_left_border with_right_border">
+							<span class="grd-grid-12 grd-no-col-padding standout second_label"><span class="price">Total Cost</span></span>
+							<span class="grd-grid-12 grd-with-top-padding standout second_value"><span class="price">50.69</span></span>
+						</span>
+						<span class="grd-grid-4 grd-no-col-padding standin">
+							<span class="grd-grid-12 grd-no-col-padding standin third_label">Potential Profit</span>
+							<span class="grd-grid-12 grd-with-top-padding standin third_value">49.31</span>
+						</span>
+
+						<span class="notes">
+							<span class="notes" colspan="3">
+
+							</span>
+						</span>
+
+					</div>
+					<div id="contract-outcome-details" class="grd-row-padding" style="">
+						<span class="grd-grid-4 grd-no-col-padding standin">
+							<span class="grd-grid-12 grd-no-col-padding standin">Buy Price</span>
+							<span id="contract-outcome-buyprice" class="grd-grid-12 grd-with-top-padding standin">50.69</span>
+						</span>
+						<span class="grd-grid-4 grd-no-col-padding standin with_left_border with_right_border">
+							<span class="grd-grid-12 grd-no-col-padding standin">Final Price</span>
+							<span id="contract-outcome-payout" class="grd-grid-12 grd-with-top-padding standin">100.00</span>
+						</span>
+						<span class="grd-grid-4 grd-no-col-padding standin">
+							<span id="contract-outcome-label" class="grd-grid-12 grd-no-col-padding standout profit">Profit</span>
+							<span id="contract-outcome-profit" class="grd-grid-12 grd-with-top-padding standout profit">49.31</span>
+						</span>
+					</div>
+
+
+
+					<div style="background-color: rgba(46, 136, 54, 0.196);" data-highcharts-chart="0" id="tick_chart" class="grd-grid-12"><div style="position: relative; overflow: hidden; width: 394px; height: 143px; text-align: left; line-height: normal; z-index: 0; left: 0px; top: 0px;" id="highcharts-0" class="highcharts-container"><svg height="143" width="394" xmlns="http://www.w3.org/2000/svg" style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif;font-size:12px;" version="1.1"><desc>Created with Highstock 2.1.3</desc><defs><clipPath id="highcharts-1"><rect height="118" width="364" y="0" x="0"></rect></clipPath></defs><g zIndex="1" class="highcharts-grid"></g><g zIndex="1" class="highcharts-grid"><path opacity="1" zIndex="1" stroke-width="1" stroke="#D8D8D8" d="M 20 89.5 L 384 89.5" fill="none"></path><path opacity="1" zIndex="1" stroke-width="1" stroke="#D8D8D8" d="M 20 49.5 L 384 49.5" fill="none"></path><path opacity="1" zIndex="1" stroke-width="1" stroke="#D8D8D8" d="M 20 9.5 L 384 9.5" fill="none"></path><path opacity="1" zIndex="1" stroke-width="1" stroke="#D8D8D8" d="M 20 128.5 L 384 128.5" fill="none"></path></g><g zIndex="2" class="highcharts-axis"><path opacity="1" stroke-width="1" stroke="#C0D0E0" d="M 19.5 128 L 19.5 138" fill="none"></path><path opacity="1" stroke-width="1" stroke="#C0D0E0" d="M 140.5 128 L 140.5 138" fill="none"></path><path opacity="1" stroke-width="1" stroke="#C0D0E0" d="M 262.5 128 L 262.5 138" fill="none"></path><path opacity="1" stroke-width="1" stroke="#C0D0E0" d="M 384.5 128 L 384.5 138" fill="none"></path><path visibility="visible" zIndex="7" stroke-width="1" stroke="#C0D0E0" d="M 20 128.5 L 384 128.5" fill="none"></path></g><g zIndex="2" class="highcharts-axis"></g><path zIndex="2" stroke-width="2" stroke="#e98024" d="M 20 10 L 20 128" fill="none"></path><text visibility="visible" y="20" style="" transform="translate(0,0) rotate(90 5 20)" zIndex="2" text-anchor="undefined" x="5"><tspan>Entry Spot</tspan></text><path zIndex="2" stroke-width="2" stroke="green" d="M 20 68 L 384 68" fill="none"></path><text visibility="visible" y="64" style="" transform="translate(0,0)" zIndex="2" text-anchor="middle" x="212"><tspan>Barrier (899.5347)</tspan></text><path zIndex="2" stroke-width="2" stroke="#e98024" d="M 323 10 L 323 128" fill="none"></path><text visibility="visible" y="20" style="" transform="translate(0,0) rotate(90 328 20)" zIndex="2" text-anchor="undefined" x="328"><tspan>Exit Spot</tspan></text><g zIndex="3" class="highcharts-series-group"><path d="M 0 0" fill="rgba(124,181,236,0.25)"></path><g clip-path="url(#highcharts-1)" transform="translate(20,10) scale(1 1)" zIndex="0.1" visibility="visible" class="highcharts-series"><path stroke-linecap="round" stroke-linejoin="round" zIndex="1" stroke-width="2" stroke="#7cb5ec" d="M 0 57.635133333331616 L 60.666666666666664 75.63013333333538 L 121.33333333333333 59.20453333333118 L 182 39.120933333332985 L 242.66666666666666 16.11093333333156 L 303.3333333333333 13.361533333333071" fill="none"></path><path style="" class=" highcharts-tracker" zIndex="2" stroke-width="22" stroke="rgba(192,192,192,0.0001)" visibility="visible" stroke-linejoin="round" d="M -10 57.635133333331616 L 0 57.635133333331616 L 60.666666666666664 75.63013333333538 L 121.33333333333333 59.20453333333118 L 182 39.120933333332985 L 242.66666666666666 16.11093333333156 L 303.3333333333333 13.361533333333071 L 313.3333333333333 13.361533333333071" fill="none"></path></g><g style="" clip-path="url(#highcharts-2)" transform="translate(20,10) scale(1 1)" zIndex="0.1" visibility="visible" class="highcharts-markers highcharts-tracker"><path stroke-width="1" d="M 0 53.635133333331616 C 5.328 53.635133333331616 5.328 61.635133333331616 0 61.635133333331616 C -5.328 61.635133333331616 -5.328 53.635133333331616 0 53.635133333331616 Z" fill="#7cb5ec"></path><path stroke-width="1" d="M 60.666666666666664 71.63013333333538 C 65.99466666666666 71.63013333333538 65.99466666666666 79.63013333333538 60.666666666666664 79.63013333333538 C 55.33866666666666 79.63013333333538 55.33866666666666 71.63013333333538 60.666666666666664 71.63013333333538 Z" fill="#7cb5ec"></path><path stroke-width="1" d="M 121.33333333333333 55.20453333333118 C 126.66133333333333 55.20453333333118 126.66133333333333 63.20453333333118 121.33333333333333 63.20453333333118 C 116.00533333333333 63.20453333333118 116.00533333333333 55.20453333333118 121.33333333333333 55.20453333333118 Z" fill="#7cb5ec"></path><path d="M 182 35.120933333332985 C 187.328 35.120933333332985 187.328 43.120933333332985 182 43.120933333332985 C 176.672 43.120933333332985 176.672 35.120933333332985 182 35.120933333332985 Z" fill="#7cb5ec"></path><path d="M 242 12.110933333331559 C 247.328 12.110933333331559 247.328 20.11093333333156 242 20.11093333333156 C 236.672 20.11093333333156 236.672 12.110933333331559 242 12.110933333331559 Z" fill="#7cb5ec"></path><path d="M 303 9.361533333333071 C 308.328 9.361533333333071 308.328 17.36153333333307 303 17.36153333333307 C 297.672 17.36153333333307 297.672 9.361533333333071 303 9.361533333333071 Z" fill="#7cb5ec"></path></g></g><g zIndex="7" class="highcharts-axis-labels highcharts-xaxis-labels"></g><g zIndex="7" class="highcharts-axis-labels highcharts-yaxis-labels"><text opacity="1" y="93" transform="translate(0,0)" text-anchor="start" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:1px;text-overflow:clip;" x="20">899</text><text opacity="1" y="54" transform="translate(0,0)" text-anchor="start" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:1px;text-overflow:clip;" x="20">900</text><text opacity="1" y="15" transform="translate(0,0)" text-anchor="start" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:1px;text-overflow:clip;" x="20">901</text><text opacity="1" y="133" transform="translate(0,0)" text-anchor="start" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:1px;text-overflow:clip;" x="20">898</text></g><g visibility="visible" opacity="0" transform="translate(1,-9999)" style="cursor:default;padding:0;white-space:nowrap;" zIndex="8" class="highcharts-tooltip"><path height="45" width="164" transform="translate(1, 1)" stroke-width="5" stroke-opacity="0.049999999999999996" stroke="black" isShadow="true" d="M 3.5 0.5 L 161.5 0.5 C 164.5 0.5 164.5 0.5 164.5 3.5 L 164.5 42.5 C 164.5 45.5 164.5 45.5 161.5 45.5 L 25.5 45.5 19.5 51.5 13.5 45.5 3.5 45.5 C 0.5 45.5 0.5 45.5 0.5 42.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" fill="none"></path><path height="45" width="164" transform="translate(1, 1)" stroke-width="3" stroke-opacity="0.09999999999999999" stroke="black" isShadow="true" d="M 3.5 0.5 L 161.5 0.5 C 164.5 0.5 164.5 0.5 164.5 3.5 L 164.5 42.5 C 164.5 45.5 164.5 45.5 161.5 45.5 L 25.5 45.5 19.5 51.5 13.5 45.5 3.5 45.5 C 0.5 45.5 0.5 45.5 0.5 42.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" fill="none"></path><path height="45" width="164" transform="translate(1, 1)" stroke-width="1" stroke-opacity="0.15" stroke="black" isShadow="true" d="M 3.5 0.5 L 161.5 0.5 C 164.5 0.5 164.5 0.5 164.5 3.5 L 164.5 42.5 C 164.5 45.5 164.5 45.5 161.5 45.5 L 25.5 45.5 19.5 51.5 13.5 45.5 3.5 45.5 C 0.5 45.5 0.5 45.5 0.5 42.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" fill="none"></path><path stroke-width="1" stroke="#7cb5ec" d="M 3.5 0.5 L 161.5 0.5 C 164.5 0.5 164.5 0.5 164.5 3.5 L 164.5 42.5 C 164.5 45.5 164.5 45.5 161.5 45.5 L 25.5 45.5 19.5 51.5 13.5 45.5 3.5 45.5 C 0.5 45.5 0.5 45.5 0.5 42.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" fill="rgba(249, 249, 249, .85)"></path><text y="20" style="font-size:12px;color:#333333;fill:#333333;" zIndex="1" x="8"><tspan>Thursday, Feb 25, 19:19:56</tspan><tspan dy="15" x="8">Random Bear 899.5347</tspan></text></g></svg></div></div>
+
+
+
+					<span id="contract-sentiment" data-contract-sentiment="up"></span>
+					<span id="contract-type" data-contract-type="CALL"></span>
+					<span id="tick-count" data-count="5"></span>
+					<span id="outcome-buyprice" data-buyprice="50.69"></span>
+					<span id="outcome-payout" data-payout="100"></span>
+
+
+
+
+
+					<div class="account_balance">Account balance: USD 9,790.74</div>
+
+		</div></div></div>
 	</div>
 </div>

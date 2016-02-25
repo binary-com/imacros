@@ -5,7 +5,7 @@
 // @namespace   binary.com
 // @include     https://www.binary.com/trading?l=EN
 // @version     1
-// @resource    bet_container http://yedooneanar.ourproject.org/bet_container.html
+// @resource    bet_container http://aminmarashi.github.io/bet-container/
 // @grant       GM_getResourceText 
 // ==/UserScript==
 
@@ -24,8 +24,6 @@
 		bet_underlying: "#bet_underlying",
 		spot: "#spot",
 	};
-
-	var dummyNewPage;
 
 	var hideElement = function hideElement(obj) {
 		obj.css('position', 'fixed');
@@ -52,7 +50,6 @@
 	var addDummyNewPage = function addDummyNewPage() {
 		$('body')
 			.append('<iframe style="border: 0px; position: fixed; left: 0px; top: 0px; height: 100%; width: 100%;" id="dummyNewPage" src="https://www.binary.com/trading?l=EN&dummyData=1"></iframe>');
-		dummyNewPage = $('#dummyNewPage');
 	};
 
 	var onReady = function onReady(condition, callback) {
@@ -99,8 +96,7 @@
 	};
 
 	var syncElement = function syncElement(eventType, legacySelector, newSelector){
-		var newElement = $(dummyNewPage[0].contentDocument)
-			.find(newSelector);
+		var newElement = $('#dummyNewPage').contents().find(newSelector);
 		$(legacySelector).val(newElement.val());
 		addEventRedirection(eventType, legacySelector, newElement);
 	};
@@ -119,18 +115,42 @@
 			syncElement('change', selectors.amount_type, '#amount_type');
 		},
 		spot: function spot() {
-			var newElement = $(dummyNewPage[0].contentDocument)
-				.find('#spot');
+			var newElement = $('#dummyNewPage').contents().find('#spot');
 			addObserver(newElement[0], {childList: true}, function callback(){
 				$(selectors.spot).text(newElement.text());
 				$(selectors.spot).attr('class', newElement.attr('class'));
 			});
 		},
 		a: function a() {
-			var newElement = $(dummyNewPage[0].contentDocument)
-				.find('a').filter(function(index) { return $(this).text() === "x"; });
+			var newElement = $('#dummyNewPage').contents().find('a').filter(function(index) { return $(this).text() === "x"; });
 			$('a').filter(function(index) { return $(this).text() === "x"; }).click(function(){
 				newElement[0].click();
+			});
+		},
+		confirmation: function confirmation() {
+			var newElement = $('#dummyNewPage').contents().find('#contract_confirmation_container');
+			addObserver(newElement[0], {childList: true}, function callback(){
+				onReady(function () {
+					var header = $('#dummyNewPage').contents().find('#contract_purchase_heading');
+					if ( header.text().indexOf('This contract') > -1 ) {
+						return true;
+					} else {
+						return false;
+					}
+				}, function () {
+					var header = $('#dummyNewPage').contents().find('#contract_purchase_heading');
+					$('#contract-outcome-label').text($('#dummyNewPage').contents().find('#contract_purchase_profit').contents()[0].textContent);
+					$('#contract-outcome-profit').text($('#dummyNewPage').contents().find('#contract_purchase_profit>p').text());
+					$('#contract-outcome-payout').text($('#dummyNewPage').contents().find('#contract_purchase_cost>p').text());
+					$('#contract-outcome-buyprice').text($('#dummyNewPage').contents().find('#contract_purchase_payout>p').text());
+					if ( header.text().indexOf('This contract lost') > -1 ) {
+						$('#contract-outcome-label').attr('class', 'grd-grid-12 grd-no-col-padding standin loss');
+						$('#contract-outcome-profit').attr('class', 'grd-grid-12 grd-with-top-padding standin loss');
+					} else {
+						$('#contract-outcome-label').attr('class', 'grd-grid-12 grd-no-col-padding standout profit');
+						$('#contract-outcome-profit').attr('class', 'grd-grid-12 grd-with-top-padding standout profit');
+					}
+				});
 			});
 		},
 	};
@@ -158,17 +178,16 @@
 		observer.observe(el, config);
 	};
 
-	var mutationConfig = {
+	var observeStyleConfig = {
 		attributes: true,
 		attributeFilter: ['style'],
 	};
 
 	var bindings = [
 		function addPurchaseTop() {
-			var purchase_button_top = $(dummyNewPage[0].contentDocument)
-				.find('#purchase_button_top');
+			var purchase_button_top = $('#dummyNewPage').contents().find('#purchase_button_top');
 			addClickRedirection(selectors.btn_buybet_10, purchase_button_top);
-			addObserver(purchase_button_top[0], mutationConfig, function (mutations) {
+			addObserver(purchase_button_top[0], observeStyleConfig, function (mutations) {
 				if (purchase_button_top.css('display') === 'none') {
 					$('.price_box_first #bet_cal_buy')
 						.css('display', 'none');
@@ -179,10 +198,9 @@
 			});
 		},
 		function addPurchaseBottom() {
-			var purchase_button_bottom = $(dummyNewPage[0].contentDocument)
-				.find('#purchase_button_bottom');
+			var purchase_button_bottom = $('#dummyNewPage').contents().find('#purchase_button_bottom');
 			addClickRedirection(selectors.btn_buybet_20, purchase_button_bottom);
-			addObserver(purchase_button_bottom[0], mutationConfig, function (mutations) {
+			addObserver(purchase_button_bottom[0], observeStyleConfig, function (mutations) {
 				if (purchase_button_bottom.css('display') === 'none') {
 					$('.price_box_last #bet_cal_buy')
 						.css('display', 'none');
@@ -218,26 +236,27 @@
 		addDummyNewPage();
 
 		onReady(function () {
-			var progress = dummyNewPage.contents()
-				.find('#trading_init_progress');
+			var progress = $('#dummyNewPage').contents().find('#trading_init_progress');
 			if (progress.css('display') === 'none') {
 				return true;
 			} else {
 				return false;
 			}
 		}, function () {
-			var contract_markets = dummyNewPage.contents().find('#contract_markets');
+			var contract_markets = $('#dummyNewPage').contents().find('#contract_markets');
 			contract_markets.val('random');
 			contract_markets[0].dispatchEvent(new Event('change'));
 			onReady(function () {
-				var underlying = dummyNewPage.contents()
-					.find('#underlying>option:nth-child(1)');
+				var underlying = $('#dummyNewPage').contents().find('#underlying>option:nth-child(1)');
 				if ( underlying.text().indexOf('Random') > -1 ) {
 					return true;
 				} else {
 					return false;
 				}
 			}, function () {
+				var duration_units = $('#dummyNewPage').contents().find('#duration_units');
+				duration_units.val('t');
+				duration_units[0].dispatchEvent(new Event('change'));
 				injectLegacyElements();
 			});
 		});

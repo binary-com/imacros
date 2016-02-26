@@ -82,23 +82,34 @@
 		}
 	};
 
-	var addEventRedirection = function addEventRedirection(eventName, legacySelector, newElement){
+	var addEventRedirection = function addEventRedirection(eventName, legacySelector, newElement) {
 		$(legacySelector)
 			.on(eventName, function (event) {
 				event.preventDefault();
 				newElement.val(event.target.value);
 				newElement[0].dispatchEvent(new Event('change'));
 			});
-		newElement
-			.on(eventName, function (event) {
-				$(legacySelector).val(event.target.value);
-			});
+		newElement.on(eventName, function (event) {
+			console.log(eventName, event.target.value, 'legacy', $(legacySelector)
+				.val());
+			newElement.val($(legacySelector)
+				.val());
+		});
 	};
 
-	var syncElement = function syncElement(eventType, legacySelector, newSelector){
-		var newElement = $('#dummyNewPage').contents().find(newSelector);
-		$(legacySelector).val(newElement.val());
-		addEventRedirection(eventType, legacySelector, newElement);
+	var syncElement = function syncElement(eventType, legacySelector, newSelector) {
+		var newElement = $('#dummyNewPage')
+			.contents()
+			.find(newSelector);
+
+		if (eventType !== null) {
+			$(legacySelector)
+				.val(newElement.val());
+			addEventRedirection(eventType, legacySelector, newElement);
+		} else {
+			newElement.val($(legacySelector)
+				.val());
+		}
 	};
 
 	var elementShapes = {
@@ -106,59 +117,124 @@
 			syncElement('change', selectors.bet_underlying, '#underlying');
 		},
 		amount: function amount() {
-			syncElement('input', selectors.amount, '#amount');
+			syncElement('input change paste', selectors.amount, '#amount');
 		},
 		duration_amount: function duration_amount() {
-			syncElement('input', selectors.duration_amount, '#duration_amount');
+			syncElement('input change paste', selectors.duration_amount, '#duration_amount');
 		},
 		amount_type: function amount_type() {
 			syncElement('change', selectors.amount_type, '#amount_type');
 		},
 		spot: function spot() {
-			var newElement = $('#dummyNewPage').contents().find('#spot');
-			addObserver(newElement[0], {childList: true}, function callback(){
-				$(selectors.spot).text(newElement.text());
-				$(selectors.spot).attr('class', newElement.attr('class'));
+			var newElement = $('#dummyNewPage')
+				.contents()
+				.find('#spot');
+			addObserver(newElement[0], {
+				childList: true
+			}, function callback() {
+				$(selectors.spot)
+					.text(newElement.text());
+				$(selectors.spot)
+					.attr('class', newElement.attr('class'));
 			});
 		},
 		a: function a() {
-			var newElement = $('#dummyNewPage').contents().find('a').filter(function(index) { return $(this).text() === "x"; });
-			$('a').filter(function(index) { return $(this).text() === "x"; }).click(function(){
-				newElement[0].click();
-			});
+			var newElement = $('#dummyNewPage')
+				.contents()
+				.find('a')
+				.filter(function (index) {
+					return $(this)
+						.text() === "x";
+				});
+			$('a')
+				.filter(function (index) {
+					return $(this)
+						.text() === "x";
+				})
+				.click(function () {
+					newElement[0].click();
+				});
 		},
 		confirmation: function confirmation() {
-			var newElement = $('#dummyNewPage').contents().find('#contract_confirmation_container');
-			addObserver(newElement[0], {childList: true}, function callback(){
+			var newElement = $('#dummyNewPage')
+				.contents()
+				.find('#contract_confirmation_container');
+			addObserver(newElement[0], {
+				childList: true
+			}, function callback() {
 				onReady(function () {
-					var header = $('#dummyNewPage').contents().find('#contract_purchase_heading');
-					if ( header.text().indexOf('This contract') > -1 ) {
+					var header = $('#dummyNewPage')
+						.contents()
+						.find('#contract_purchase_heading');
+					if (header.text()
+						.indexOf('This contract') > -1) {
 						return true;
 					} else {
 						return false;
 					}
 				}, function () {
-					var header = $('#dummyNewPage').contents().find('#contract_purchase_heading');
-					$('#contract-outcome-label').text($('#dummyNewPage').contents().find('#contract_purchase_profit').contents()[0].textContent);
-					$('#contract-outcome-profit').text($('#dummyNewPage').contents().find('#contract_purchase_profit>p').text());
-					$('#contract-outcome-payout').text($('#dummyNewPage').contents().find('#contract_purchase_cost>p').text());
-					$('#contract-outcome-buyprice').text($('#dummyNewPage').contents().find('#contract_purchase_payout>p').text());
-					if ( header.text().indexOf('This contract lost') > -1 ) {
-						$('#contract-outcome-label').attr('class', 'grd-grid-12 grd-no-col-padding standin loss');
-						$('#contract-outcome-profit').attr('class', 'grd-grid-12 grd-with-top-padding standin loss');
+					var header = $('#dummyNewPage')
+						.contents()
+						.find('#contract_purchase_heading');
+					$('#contract-outcome-label')
+						.text($('#dummyNewPage')
+							.contents()
+							.find('#contract_purchase_profit')
+							.contents()[0].textContent);
+					$('#contract-outcome-profit')
+						.text($('#dummyNewPage')
+							.contents()
+							.find('#contract_purchase_profit>p')
+							.text());
+					$('#contract-outcome-payout')
+						.text($('#dummyNewPage')
+							.contents()
+							.find('#contract_purchase_cost>p')
+							.text());
+					$('#contract-outcome-buyprice')
+						.text($('#dummyNewPage')
+							.contents()
+							.find('#contract_purchase_payout>p')
+							.text());
+					if (header.text()
+						.indexOf('This contract lost') > -1) {
+						$('#contract-outcome-label')
+							.attr('class', 'grd-grid-12 grd-no-col-padding standin loss');
+						$('#contract-outcome-profit')
+							.attr('class', 'grd-grid-12 grd-with-top-padding standin loss');
 					} else {
-						$('#contract-outcome-label').attr('class', 'grd-grid-12 grd-no-col-padding standout profit');
-						$('#contract-outcome-profit').attr('class', 'grd-grid-12 grd-with-top-padding standout profit');
+						$('#contract-outcome-label')
+							.attr('class', 'grd-grid-12 grd-no-col-padding standout profit');
+						$('#contract-outcome-profit')
+							.attr('class', 'grd-grid-12 grd-with-top-padding standout profit');
 					}
 				});
+			});
+		},
+		bet_calculate: function bet_calculate() {
+			$('#bet_calculate')
+				.click(function (event) {
+					event.preventDefault();
+				});
+		},
+		resync: function resync() {
+			var loading = $('#dummyNewPage')
+				.contents()
+				.find('#loading_container3');
+			addObserver(loading[0], observeStyleConfig, function callback() {
+				syncElement(null, selectors.bet_underlying, '#underlying');
+				syncElement(null, selectors.amount, '#amount');
+				syncElement(null, selectors.duration_amount, '#duration_amount');
+				syncElement(null, selectors.amount_type, '#amount_type');
 			});
 		},
 	};
 
 	var updateElements = function updateElements() {
-		Object.keys(elementShapes).forEach(function(element){
-			elementShapes[element]();
-		});
+		Object.keys(elementShapes)
+			.forEach(function (element) {
+				elementShapes[element]();
+			});
 	};
 
 	var addClickRedirection = function addClickRedirection(legacySelector, newElement) {
@@ -185,7 +261,9 @@
 
 	var bindings = [
 		function addPurchaseTop() {
-			var purchase_button_top = $('#dummyNewPage').contents().find('#purchase_button_top');
+			var purchase_button_top = $('#dummyNewPage')
+				.contents()
+				.find('#purchase_button_top');
 			addClickRedirection(selectors.btn_buybet_10, purchase_button_top);
 			addObserver(purchase_button_top[0], observeStyleConfig, function (mutations) {
 				if (purchase_button_top.css('display') === 'none') {
@@ -198,7 +276,9 @@
 			});
 		},
 		function addPurchaseBottom() {
-			var purchase_button_bottom = $('#dummyNewPage').contents().find('#purchase_button_bottom');
+			var purchase_button_bottom = $('#dummyNewPage')
+				.contents()
+				.find('#purchase_button_bottom');
 			addClickRedirection(selectors.btn_buybet_20, purchase_button_bottom);
 			addObserver(purchase_button_bottom[0], observeStyleConfig, function (mutations) {
 				if (purchase_button_bottom.css('display') === 'none') {
@@ -236,27 +316,35 @@
 		addDummyNewPage();
 
 		onReady(function () {
-			var progress = $('#dummyNewPage').contents().find('#trading_init_progress');
+			var progress = $('#dummyNewPage')
+				.contents()
+				.find('#trading_init_progress');
 			if (progress.css('display') === 'none') {
 				return true;
 			} else {
 				return false;
 			}
 		}, function () {
-			var contract_markets = $('#dummyNewPage').contents().find('#contract_markets');
+			var duration_units = $('#dummyNewPage')
+				.contents()
+				.find('#duration_units');
+			duration_units.val('t');
+			duration_units[0].dispatchEvent(new Event('change'));
+			var contract_markets = $('#dummyNewPage')
+				.contents()
+				.find('#contract_markets');
 			contract_markets.val('random');
 			contract_markets[0].dispatchEvent(new Event('change'));
 			onReady(function () {
-				var underlying = $('#dummyNewPage').contents().find('#underlying>option:nth-child(1)');
-				if ( underlying.text().indexOf('Random') > -1 ) {
+				var loading = $('#dummyNewPage')
+					.contents()
+					.find('#loading_container3');
+				if (loading.css('display') === 'none') {
 					return true;
 				} else {
 					return false;
 				}
 			}, function () {
-				var duration_units = $('#dummyNewPage').contents().find('#duration_units');
-				duration_units.val('t');
-				duration_units[0].dispatchEvent(new Event('change'));
 				injectLegacyElements();
 			});
 		});

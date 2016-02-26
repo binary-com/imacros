@@ -109,6 +109,7 @@
 		} else {
 			newElement.val($(legacySelector)
 				.val());
+			newElement[0].dispatchEvent(new Event('input'));
 		}
 	};
 

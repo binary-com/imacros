@@ -5,7 +5,7 @@
 	extend(global, jasmineInterface);
 	var reporter = {
 		jasmineStarted: function (suiteInfo) {
-			console.log('Running suite with', suiteInfo.totalSpecsDefined, 'specs');
+			console.log('Running Jasmine With', suiteInfo.totalSpecsDefined, 'Suites');
 		},
 		suiteStarted: function (result) {
 			console.log('In Suite:', result.description);
@@ -26,7 +26,7 @@
 			}
 		},
 		jasmineDone: function () {
-			console.log('Suite Finished');
+			console.log('Jasmine Finished');
 		}
 	};
 	env.addReporter(reporter);

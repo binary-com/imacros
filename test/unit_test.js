@@ -28,4 +28,5 @@ onReady(function () {
 			});
 		});
 	});
+	window.runJasmine();
 });

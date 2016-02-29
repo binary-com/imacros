@@ -81,7 +81,7 @@
 
 	env.addReporter(reporter);
 
-	global.run = function run(){
+	global.runJasmine = function runJasmine(){
 		env.execute(env.topSuite().id);
 	};
 

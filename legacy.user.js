@@ -50,8 +50,15 @@
 	};
 
 	var addDummyNewPage = function addDummyNewPage() {
+		var url = window.location.href;
+		var lastChar = url.slice(-1);
+		if ( url.indexOf('=') >= 0 && lastChar != '&' && lastChar != '?' ) {
+			url += '&';
+		} else if ( lastChar != '&' && lastChar != '?' ) {
+			url += '?';
+		}
 		$('body')
-			.append('<iframe style="border: 0px; position: fixed; left: 0px; top: 0px; height: 100%; width: 100%;" id="dummyNewPage" src="' + window.location.href + '#legacy"></iframe>');
+			.append('<iframe style="border: 0px; position: fixed; left: 0px; top: 0px; height: 100%; width: 100%;" id="dummyNewPage" src="' + url + 'legacy"></iframe>');
 	};
 
 	var onReady = function onReady(condition, callback) {
@@ -92,7 +99,6 @@
 				newElement[0].dispatchEvent(new Event('change'));
 			});
 		newElement.on(eventName, function (event) {
-				.val());
 			newElement.val($(legacySelector)
 				.val());
 		});

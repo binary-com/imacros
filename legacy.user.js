@@ -14,7 +14,6 @@
 // @grant       GM_getResourceText 
 // ==/UserScript==
 
-var legacyInjected = false;
 (function () {
 	var selectors = {
 		orderform_10: "form.orderform#orderform_10",
@@ -368,9 +367,9 @@ var Spec = function Spec() {
 	eval(GM_getResourceText('jasmine'));
 	eval(GM_getResourceText('jasmine_boot'));
 	eval(GM_getResourceText('unit_test'));
-	window.runJasmine();
 };
 var run_unit_test = function run_unit_test() {
 	Spec.call(window);
 };
+var legacyInjected = false;
 run_unit_test();

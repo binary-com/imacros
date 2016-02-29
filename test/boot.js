@@ -14,25 +14,26 @@
 			console.log(result.description);
 		},
 		specDone: function (result) {
-			console.log('Spec:', result.description, 'was', result.status);
+			console.log(result.description, 'was', result.status);
 			for (var i = 0; i < result.failedExpectations.length; i++) {
 				console.log('Failure:', result.failedExpectations[i].message);
 			}
 		},
 		suiteDone: function (result) {
-			console.log('Suite:', result.description, 'was', result.status);
+			console.log('Suit:', result.description, 'was', result.status);
 			for (var i = 0; i < result.failedExpectations.length; i++) {
 				console.log('At Last:', result.failedExpectations[i].message);
 			}
 		},
 		jasmineDone: function () {
-			console.log('Site Finished');
+			console.log('Suite Finished');
 		}
 	};
 	env.addReporter(reporter);
-	global.runJasmine = function runJasmine(){
+	global.runJasmine = function runJasmine() {
 		env.execute();
 	};
+
 	function extend(destination, source) {
 		for (var property in source) destination[property] = source[property];
 		return destination;

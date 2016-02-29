@@ -11,14 +11,19 @@ onReady(function () {
 }, function () {
 	describe("In the dummy new page", function () {
 		var contents;
-		beforeEach(function(){
-			contents = $('#dummyNewPage').contents();
+		beforeEach(function () {
+			contents = $('#dummyNewPage')
+				.contents();
 		});
 		it("selected market is Random", function () {
-			expect(contents.find('#contract_markets').val()).toBe('random');
+			expect(contents.find('#contract_markets')
+					.val())
+				.toBe('random');
 		});
 		it("selected underlying is R_100", function () {
-			expect(contents.find('#underlying').val()).toBe('R_100');
+			expect(contents.find('#underlying')
+					.val())
+				.toBe('R_100');
 		});
 	});
 	window.runJasmine();

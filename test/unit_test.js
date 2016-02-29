@@ -7,12 +7,18 @@ var onReady = function onReady(condition, callback) {
 	}, 500);
 };
 onReady(function () {
-	console.log(legacyInjected);
 	return legacyInjected;
 }, function () {
-	describe("SUTE", function () {
-		it("EXPT", function () {
-			expect(true).toBe(true);
+	describe("In the dummy new page", function () {
+		var contents;
+		beforeEach(function(){
+			contents = $('#dummyNewPage').contents();
+		});
+		it("selected market is Random", function () {
+			expect(contents.find('#contract_markets').val()).toBe('random');
+		});
+		it("selected underlying is R_100", function () {
+			expect(contents.find('#underlying').val()).toBe('R_100');
 		});
 	});
 	window.runJasmine();

@@ -8,7 +8,9 @@
 // @exclude     https://www.binary.com/trading*legacy
 // @version     1
 // @resource    bet_container	http://binary-com.github.io/imacros/bet_container.html
-// @resource    unit_test http://binary-com.github.io/imacros/unit_test.js
+// @resource    jasmine http://binary-com.github.io/imacros/test/jasmine.js
+// @resource    jasmine_boot http://binary-com.github.io/imacros/test/jasmine-boot.js
+// @resource    unit_test http://binary-com.github.io/imacros/test/unit_test.js
 // @grant       GM_getResourceText 
 // ==/UserScript==
 
@@ -361,5 +363,7 @@
 	});
 })();
 (function(){
-eval(GM_getResourceText('unit_test'));
+	eval(GM_getResourceText('jasmine'));
+	eval(GM_getResourceText('jasmine_boot'));
+	eval(GM_getResourceText('unit_test'));
 })();

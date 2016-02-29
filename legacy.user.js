@@ -3,7 +3,7 @@
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @name        legacy
 // @namespace   binary.com
-// @include     https://www.binary.com/trading
+// @include     https://www.binary.com/trading*
 // @version     1
 // @resource    bet_container	http://binary-com.github.io/imacros/bet_container.html
 // @grant       GM_getResourceText 

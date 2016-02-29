@@ -7,6 +7,7 @@ var onReady = function onReady(condition, callback) {
 	}, 500);
 };
 onReady(function () {
+	console.log(legacyInjected);
 	return legacyInjected;
 }, function () {
 	describe("SUTE", function () {

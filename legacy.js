@@ -1,7 +1,7 @@
 // ==UserScript==
 // @run-at      document-start
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
-// @name        inject_legacy
+// @name        legacy
 // @namespace   binary.com
 // @include     https://www.binary.com/trading?l=EN
 // @version     1

@@ -14,6 +14,7 @@
 // @grant       GM_getResourceText 
 // ==/UserScript==
 
+var legacyInjected = false;
 (function () {
 	var selectors = {
 		orderform_10: "form.orderform#orderform_10",
@@ -313,6 +314,7 @@
 		addLegacyElements();
 		updateElements();
 		addTwoWayBindings();
+		legacyInjected = true;
 	};
 
 	onReady(function () {

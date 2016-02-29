@@ -364,6 +364,5 @@
 })();
 (function(){
 	eval(GM_getResourceText('jasmine'));
-	eval(GM_getResourceText('jasmine_boot'));
 	eval(GM_getResourceText('unit_test'));
 })();

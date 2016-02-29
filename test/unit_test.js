@@ -20,6 +20,6 @@ onReady(function () {
 					.toBe(1);
 			});
 		});
+		window.runJasmine();
 	});
-	window.runJasmine();
 });

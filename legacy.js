@@ -90,7 +90,6 @@
 				newElement[0].dispatchEvent(new Event('change'));
 			});
 		newElement.on(eventName, function (event) {
-			console.log(eventName, event.target.value, 'legacy', $(legacySelector)
 				.val());
 			newElement.val($(legacySelector)
 				.val());

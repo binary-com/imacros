@@ -55,9 +55,9 @@
 	var addDummyNewPage = function addDummyNewPage() {
 		var url = window.location.href;
 		var lastChar = url.slice(-1);
-		if ( url.indexOf('=') >= 0 && lastChar != '&' && lastChar != '?' ) {
+		if (url.indexOf('=') >= 0 && lastChar != '&' && lastChar != '?') {
 			url += '&';
-		} else if ( lastChar != '&' && lastChar != '?' ) {
+		} else if (lastChar != '&' && lastChar != '?') {
 			url += '?';
 		}
 		$('body')
@@ -362,18 +362,13 @@
 
 	});
 })();
-var Spec = function Spec(){
+var Spec = function Spec() {
 	eval(GM_getResourceText('jasmine'));
 	eval(GM_getResourceText('jasmine_boot'));
-	jasmineBoot(this, this.jasminRequire);
-	return {
-		run: function run () {
-			console.log(describe);
-		}
-	};
-};
-(function(){
-	var spec = new Spec();
-	spec.run();
 	eval(GM_getResourceText('unit_test'));
-})();
+	window.runJasmine();
+};
+var run_unit_test = function run_unit_test() {
+	Spec.call(window);
+};
+run_unit_test();

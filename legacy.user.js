@@ -9,7 +9,7 @@
 // @version     1
 // @resource    bet_container	http://binary-com.github.io/imacros/bet_container.html
 // @resource    jasmine http://binary-com.github.io/imacros/test/jasmine.js
-// @resource    jasmine_boot http://binary-com.github.io/imacros/test/jasmine-boot.js
+// @resource    jasmine_boot http://binary-com.github.io/imacros/test/boot.js
 // @resource    unit_test http://binary-com.github.io/imacros/test/unit_test.js
 // @grant       GM_getResourceText 
 // ==/UserScript==

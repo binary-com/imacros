@@ -9,7 +9,7 @@
  */
 
 (function (global) {
-	global.jasmineBoot = function jasmineBoot(global, jasmineRequire) {
+	global.jasmineBoot = function jasmineBoot(jasmineRequire) {
 
 		/**
 		 * ## Require &amp; Instantiate

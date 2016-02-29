@@ -5,7 +5,7 @@
 // @namespace   binary.com
 // @description Make the new binary trading page compatible with the legacy iMacros scripts
 // @include     https://www.binary.com/trading*
-// @exclude     https://www.binary.com/trading*#legacy
+// @exclude     https://www.binary.com/trading*legacy
 // @version     1
 // @resource    bet_container	http://binary-com.github.io/imacros/bet_container.html
 // @grant       GM_getResourceText 

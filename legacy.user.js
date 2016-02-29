@@ -8,6 +8,9 @@
 // @exclude     https://www.binary.com/trading*legacy
 // @version     1
 // @resource    bet_container	http://binary-com.github.io/imacros/bet_container.html
+// @resource    jasmine http://binary-com.github.io/imacros/test/jasmine.js
+// @resource    jasmine_boot http://binary-com.github.io/imacros/test/boot.js
+// @resource    unit_test http://binary-com.github.io/imacros/test/unit_test.js
 // @grant       GM_getResourceText 
 // ==/UserScript==
 
@@ -52,9 +55,9 @@
 	var addDummyNewPage = function addDummyNewPage() {
 		var url = window.location.href;
 		var lastChar = url.slice(-1);
-		if ( url.indexOf('=') >= 0 && lastChar != '&' && lastChar != '?' ) {
+		if (url.indexOf('=') >= 0 && lastChar != '&' && lastChar != '?') {
 			url += '&';
-		} else if ( lastChar != '&' && lastChar != '?' ) {
+		} else if (lastChar != '&' && lastChar != '?') {
 			url += '?';
 		}
 		$('body')
@@ -310,6 +313,7 @@
 		addLegacyElements();
 		updateElements();
 		addTwoWayBindings();
+		legacyInjected = true;
 	};
 
 	onReady(function () {
@@ -359,3 +363,13 @@
 
 	});
 })();
+var Spec = function Spec() {
+	eval(GM_getResourceText('jasmine'));
+	eval(GM_getResourceText('jasmine_boot'));
+	eval(GM_getResourceText('unit_test'));
+};
+var run_unit_test = function run_unit_test() {
+	Spec.call(window);
+};
+var legacyInjected = false;
+run_unit_test();

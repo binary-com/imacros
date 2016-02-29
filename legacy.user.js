@@ -362,7 +362,18 @@
 
 	});
 })();
-(function(){
+var Spec = function Spec(){
 	eval(GM_getResourceText('jasmine'));
+	eval(GM_getResourceText('jasmine_boot'));
+	jasmineBoot(this, this.jasminRequire);
+	return {
+		run: function run () {
+			console.log(describe);
+		}
+	};
+};
+(function(){
+	var spec = new Spec();
+	spec.run();
 	eval(GM_getResourceText('unit_test'));
 })();

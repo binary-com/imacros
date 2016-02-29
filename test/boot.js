@@ -37,13 +37,7 @@
 
 
 	var reporter = {
-
-
-
-
 		jasmineStarted: function (suiteInfo) {
-
-
 			console.log('Running suite with ' + suiteInfo.totalSpecsDefined);
 		},
 		suiteStarted: function (result) {
@@ -55,7 +49,6 @@
 
 
 		specDone: function (result) {
-
 			console.log('Spec: ' + result.description + ' was ' + result.status);
 			for (var i = 0; i < result.failedExpectations.length; i++) {
 				console.log('Failure: ' + result.failedExpectations[i].message);
@@ -82,7 +75,7 @@
 	env.addReporter(reporter);
 
 	global.runJasmine = function runJasmine(){
-		env.execute(env.topSuite().id);
+		env.execute();
 	};
 
 	function extend(destination, source) {

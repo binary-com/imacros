@@ -5,6 +5,7 @@
 // @namespace   binary.com
 // @description Make the new binary trading page compatible with the legacy iMacros scripts
 // @include     https://www.binary.com/trading*
+// @exclude     https://www.binary.com/trading*#legacy
 // @version     1
 // @resource    bet_container	http://binary-com.github.io/imacros/bet_container.html
 // @grant       GM_getResourceText 
@@ -50,7 +51,7 @@
 
 	var addDummyNewPage = function addDummyNewPage() {
 		$('body')
-			.append('<iframe style="border: 0px; position: fixed; left: 0px; top: 0px; height: 100%; width: 100%;" id="dummyNewPage" src="https://www.binary.com/trading&dummyData=1"></iframe>');
+			.append('<iframe style="border: 0px; position: fixed; left: 0px; top: 0px; height: 100%; width: 100%;" id="dummyNewPage" src="' + window.location.href + '#legacy"></iframe>');
 	};
 
 	var onReady = function onReady(condition, callback) {

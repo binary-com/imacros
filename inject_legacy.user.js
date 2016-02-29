@@ -5,7 +5,7 @@
 // @namespace   binary.com
 // @include     https://www.binary.com/trading?l=EN
 // @version     1
-// @resource    bet_container http://aminmarashi.github.io/bet-container/
+// @resource    bet_container	http://binary-com.github.io/imacros/bet_container.html
 // @grant       GM_getResourceText 
 // ==/UserScript==
 

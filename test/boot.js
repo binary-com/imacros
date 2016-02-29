@@ -81,7 +81,9 @@
 
 	env.addReporter(reporter);
 
-	env.execute();
+	global.run = function run(){
+		env.execute(env.topSuite().id);
+	};
 
 	function extend(destination, source) {
 		for (var property in source) destination[property] = source[property];

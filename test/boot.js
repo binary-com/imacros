@@ -8,10 +8,10 @@
 			console.log('Running suite with', suiteInfo.totalSpecsDefined, 'specs');
 		},
 		suiteStarted: function (result) {
-			console.log(result.description);
+			console.log('In Suite:', result.description);
 		},
 		specStarted: function (result) {
-			console.log(result.description);
+			console.log('Entering:', result.description);
 		},
 		specDone: function (result) {
 			console.log(result.description, 'was', result.status);

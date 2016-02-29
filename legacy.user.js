@@ -3,7 +3,7 @@
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @name        legacy
 // @namespace   binary.com
-// @include     https://www.binary.com/trading?l=EN
+// @include     https://www.binary.com/trading
 // @version     1
 // @resource    bet_container	http://binary-com.github.io/imacros/bet_container.html
 // @grant       GM_getResourceText 
@@ -49,7 +49,7 @@
 
 	var addDummyNewPage = function addDummyNewPage() {
 		$('body')
-			.append('<iframe style="border: 0px; position: fixed; left: 0px; top: 0px; height: 100%; width: 100%;" id="dummyNewPage" src="https://www.binary.com/trading?l=EN&dummyData=1"></iframe>');
+			.append('<iframe style="border: 0px; position: fixed; left: 0px; top: 0px; height: 100%; width: 100%;" id="dummyNewPage" src="https://www.binary.com/trading&dummyData=1"></iframe>');
 	};
 
 	var onReady = function onReady(condition, callback) {

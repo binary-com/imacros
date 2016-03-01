@@ -372,4 +372,4 @@ var run_unit_test = function run_unit_test() {
 	Spec.call(window);
 };
 var legacyInjected = false;
-run_unit_test();
+//run_unit_test();

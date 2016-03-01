@@ -25,6 +25,19 @@ onReady(function () {
 					.val())
 				.toBe('R_100');
 		});
+		xit("selected underlying is R_00", function () {
+			expect(contents.find('#underlying')
+					.val())
+				.toBe('R_00');
+		});
+	});
+	xdescribe('fake', function(){
+		it('test1', function(){
+			expect(1).toBe(1)
+		});
+		it('test2', function(){
+			expect(2).toBe(1)
+		});
 	});
 	window.runJasmine();
 });

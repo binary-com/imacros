@@ -20,7 +20,7 @@ onReady(function () {
 					.val())
 				.toBe('random');
 		});
-		it("selected underlying is R_100", function () {
+		xit("selected underlying is R_100", function () {
 			expect(contents.find('#underlying')
 					.val())
 				.toBe('R_100');

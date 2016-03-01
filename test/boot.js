@@ -14,9 +14,17 @@
 			console.log('Entering:', result.description);
 		},
 		specDone: function (result) {
-			console.log(result.description, 'was', result.status);
+			var css = '';
+			if ( result.status === 'passed' ) {
+				css = 'color: green';
+			} else if ( result.status === 'disabled' ) {
+				css = 'color: yellow';
+			} else {
+				css = 'color: red';
+			}
+			console.log(result.description, 'was', '%c ' + result.status, css);
 			for (var i = 0; i < result.failedExpectations.length; i++) {
-				console.log('Failure:', result.failedExpectations[i].message);
+				console.log('%c Failure: ' + result.failedExpectations[i].message, 'color: red');
 			}
 		},
 		suiteDone: function (result) {

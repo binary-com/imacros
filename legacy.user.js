@@ -123,20 +123,56 @@
 		}
 	};
 
-	var elementShapes = {
-		underlying: function underlying() {
+	var elementShapes = [
+		function bet_calculate() {
+			$('#bet_calculate')
+				.click(function (event) {
+					event.preventDefault();
+				});
+		},
+		function purchase_top() {
+			var purchase_button_top = $('#dummyNewPage')
+				.contents()
+				.find('#purchase_button_top');
+			addClickRedirection(selectors.btn_buybet_10, purchase_button_top);
+			addObserver(purchase_button_top[0], observeStyleConfig, function (mutations) {
+				if (purchase_button_top.css('display') === 'none') {
+					$('.price_box_first #bet_cal_buy')
+						.css('display', 'none');
+				} else {
+					$('.price_box_first #bet_cal_buy')
+						.css('display', 'block');
+				}
+			});
+		},
+		function purchase_bottom() {
+			var purchase_button_bottom = $('#dummyNewPage')
+				.contents()
+				.find('#purchase_button_bottom');
+			addClickRedirection(selectors.btn_buybet_20, purchase_button_bottom);
+			addObserver(purchase_button_bottom[0], observeStyleConfig, function (mutations) {
+				if (purchase_button_bottom.css('display') === 'none') {
+					$('.price_box_last #bet_cal_buy')
+						.css('display', 'none');
+				} else {
+					$('.price_box_last #bet_cal_buy')
+						.css('display', 'block');
+				}
+			});
+		},
+		function underlying() {
 			syncElement('change', selectors.bet_underlying, '#underlying');
 		},
-		amount: function amount() {
+		function amount() {
 			syncElement('input change paste', selectors.amount, '#amount');
 		},
-		duration_amount: function duration_amount() {
+		function duration_amount() {
 			syncElement('input change paste', selectors.duration_amount, '#duration_amount');
 		},
-		amount_type: function amount_type() {
+		function amount_type() {
 			syncElement('change', selectors.amount_type, '#amount_type');
 		},
-		spot: function spot() {
+		function spot() {
 			var newElement = $('#dummyNewPage')
 				.contents()
 				.find('#spot');
@@ -147,9 +183,10 @@
 					.text(newElement.text());
 				$(selectors.spot)
 					.attr('class', newElement.attr('class'));
+				window.dispatchEvent(new CustomEvent('spotChanged', {}));
 			});
 		},
-		a: function a() {
+		function a() {
 			var newElement = $('#dummyNewPage')
 				.contents()
 				.find('a')
@@ -166,7 +203,21 @@
 					newElement[0].click();
 				});
 		},
-		confirmation: function confirmation() {
+		function resync() {
+			var loading = $('#dummyNewPage')
+				.contents()
+				.find('#loading_container3');
+			addObserver(loading[0], observeStyleConfig, function callback() {
+				syncElement(null, selectors.bet_underlying, '#underlying');
+				syncElement(null, selectors.amount, '#amount');
+				syncElement(null, selectors.duration_amount, '#duration_amount');
+				syncElement(null, selectors.amount_type, '#amount_type');
+			});
+		},
+		function elementsAdded(){
+			window.dispatchEvent(new CustomEvent('elementsAdded', {}));
+		},
+		function confirmation() {
 			var newElement = $('#dummyNewPage')
 				.contents()
 				.find('#contract_confirmation_container');
@@ -219,33 +270,16 @@
 						$('#contract-outcome-profit')
 							.attr('class', 'grd-grid-12 grd-with-top-padding standout profit');
 					}
+					window.dispatchEvent(new CustomEvent('confirmationChanged', {}));
 				});
 			});
 		},
-		bet_calculate: function bet_calculate() {
-			$('#bet_calculate')
-				.click(function (event) {
-					event.preventDefault();
-				});
-		},
-		resync: function resync() {
-			var loading = $('#dummyNewPage')
-				.contents()
-				.find('#loading_container3');
-			addObserver(loading[0], observeStyleConfig, function callback() {
-				syncElement(null, selectors.bet_underlying, '#underlying');
-				syncElement(null, selectors.amount, '#amount');
-				syncElement(null, selectors.duration_amount, '#duration_amount');
-				syncElement(null, selectors.amount_type, '#amount_type');
-			});
-		},
-	};
+	];
 
 	var updateElements = function updateElements() {
-		Object.keys(elementShapes)
-			.forEach(function (element) {
-				elementShapes[element]();
-			});
+		elementShapes.forEach(function (element) {
+			element();
+		});
 	};
 
 	var addClickRedirection = function addClickRedirection(legacySelector, newElement) {
@@ -270,49 +304,9 @@
 		attributeFilter: ['style'],
 	};
 
-	var bindings = [
-		function addPurchaseTop() {
-			var purchase_button_top = $('#dummyNewPage')
-				.contents()
-				.find('#purchase_button_top');
-			addClickRedirection(selectors.btn_buybet_10, purchase_button_top);
-			addObserver(purchase_button_top[0], observeStyleConfig, function (mutations) {
-				if (purchase_button_top.css('display') === 'none') {
-					$('.price_box_first #bet_cal_buy')
-						.css('display', 'none');
-				} else {
-					$('.price_box_first #bet_cal_buy')
-						.css('display', 'block');
-				}
-			});
-		},
-		function addPurchaseBottom() {
-			var purchase_button_bottom = $('#dummyNewPage')
-				.contents()
-				.find('#purchase_button_bottom');
-			addClickRedirection(selectors.btn_buybet_20, purchase_button_bottom);
-			addObserver(purchase_button_bottom[0], observeStyleConfig, function (mutations) {
-				if (purchase_button_bottom.css('display') === 'none') {
-					$('.price_box_last #bet_cal_buy')
-						.css('display', 'none');
-				} else {
-					$('.price_box_last #bet_cal_buy')
-						.css('display', 'block');
-				}
-			});
-		},
-	];
-
-	var addTwoWayBindings = function addTwoWayBindings() {
-		bindings.forEach(function (binding) {
-			binding();
-		});
-	};
-
 	var injectLegacyElements = function injectLegacyElements() {
 		addLegacyElements();
 		updateElements();
-		addTwoWayBindings();
 		legacyInjected = true;
 	};
 
@@ -372,4 +366,4 @@ var run_unit_test = function run_unit_test() {
 	Spec.call(window);
 };
 var legacyInjected = false;
-//run_unit_test();
+run_unit_test();

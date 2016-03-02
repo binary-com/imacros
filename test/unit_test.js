@@ -96,8 +96,10 @@ window.addEventListener('elementsAdded', function (e) {
 					window.addEventListener('purchaseFinished', function () {
 						done();
 					});
-					$('button[name=btn_buybet_10]')
-						.click();
+					setTimeout(function () {
+						$('button[name=btn_buybet_10]')
+							.click();
+					}, 3000);
 				});
 				afterAll(function (done) {
 					$('a')

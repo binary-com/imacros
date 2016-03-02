@@ -1,4 +1,4 @@
-﻿// ==UserScript==
+// ==UserScript==
 // @run-at      document-start
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @name        legacy
@@ -88,12 +88,8 @@ var addParameter = function addParameter(searchString, parameterName) {
 		$('#dummyNewPage')
 			.load(function (e) {
 				var dummyLocation = e.target.contentDocument.location;
-				var hashChanged = dummyLocation.hash !== document.location.hash;
 				var searchChanged = dummyLocation.search !== queryString;
 				var urlChanged = dummyLocation.href.split('?')[0] !== document.location.href.split('?')[0];
-				if (hashChanged) {
-					document.location.hash = dummyLocation.hash;
-				}
 				if (urlChanged) {
 					document.location = dummyLocation.href;
 				} else if (searchChanged) {

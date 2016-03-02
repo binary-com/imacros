@@ -1,4 +1,4 @@
-// ==UserScript==
+﻿// ==UserScript==
 // @run-at      document-start
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @name        legacy
@@ -307,7 +307,6 @@
 	var injectLegacyElements = function injectLegacyElements() {
 		addLegacyElements();
 		updateElements();
-		legacyInjected = true;
 	};
 
 	onReady(function () {
@@ -356,14 +355,17 @@
 		});
 
 	});
+	var Spec = function Spec() {
+		eval(GM_getResourceText('jasmine'));
+		eval(GM_getResourceText('jasmine_boot'));
+		eval(GM_getResourceText('unit_test'));
+	};
+	var run_unit_test = function run_unit_test() {
+		Spec.call(window);
+	};
+	onReady(function(){
+		return unsafeWindow.runUnitTest;
+	}, function(){
+		run_unit_test();
+	});
 })();
-var Spec = function Spec() {
-	eval(GM_getResourceText('jasmine'));
-	eval(GM_getResourceText('jasmine_boot'));
-	eval(GM_getResourceText('unit_test'));
-};
-var run_unit_test = function run_unit_test() {
-	Spec.call(window);
-};
-var legacyInjected = false;
-run_unit_test();

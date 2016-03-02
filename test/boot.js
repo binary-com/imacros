@@ -16,9 +16,9 @@
 			},
 			specDone: function (result) {
 				var css = '';
-				if ( result.status === 'passed' ) {
+				if (result.status === 'passed') {
 					css = 'color: green';
-				} else if ( result.status === 'failed' ) {
+				} else if (result.status === 'failed') {
 					css = 'color: red';
 				} else {
 					css = 'color: yellow';
@@ -30,6 +30,9 @@
 			},
 			suiteDone: function (result) {
 				console.log('Suite: ' + result.description + ' was ' + result.status);
+				for (var i = 0; i < result.failedExpectations.length; i++) {
+					console.log('%cAfterAll Failed: ' + result.failedExpectations[i].message, 'color: red');
+				}
 			},
 			jasmineDone: function () {
 				console.log('Jasmine Finished');

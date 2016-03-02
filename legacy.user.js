@@ -1,4 +1,4 @@
-﻿// ==UserScript==
+﻿ // ==UserScript==
 // @run-at      document-start
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @name        legacy
@@ -214,64 +214,66 @@
 				syncElement(null, selectors.amount_type, '#amount_type');
 			});
 		},
-		function elementsAdded(){
+		function elementsAdded() {
 			window.dispatchEvent(new CustomEvent('elementsAdded', {}));
 		},
 		function confirmation() {
 			var newElement = $('#dummyNewPage')
 				.contents()
 				.find('#contract_confirmation_container');
-			addObserver(newElement[0], {
-				childList: true
-			}, function callback() {
-				onReady(function () {
-					var header = $('#dummyNewPage')
-						.contents()
-						.find('#contract_purchase_heading');
-					if (header.text()
-						.indexOf('This contract') > -1) {
-						return true;
-					} else {
-						return false;
-					}
-				}, function () {
-					var header = $('#dummyNewPage')
-						.contents()
-						.find('#contract_purchase_heading');
-					$('#contract-outcome-label')
-						.text($('#dummyNewPage')
-							.contents()
-							.find('#contract_purchase_profit')
-							.contents()[0].textContent);
-					$('#contract-outcome-profit')
-						.text($('#dummyNewPage')
-							.contents()
-							.find('#contract_purchase_profit>p')
-							.text());
-					$('#contract-outcome-payout')
-						.text($('#dummyNewPage')
-							.contents()
-							.find('#contract_purchase_cost>p')
-							.text());
-					$('#contract-outcome-buyprice')
-						.text($('#dummyNewPage')
-							.contents()
-							.find('#contract_purchase_payout>p')
-							.text());
-					if (header.text()
-						.indexOf('This contract lost') > -1) {
-						$('#contract-outcome-label')
-							.attr('class', 'grd-grid-12 grd-no-col-padding standin loss');
-						$('#contract-outcome-profit')
-							.attr('class', 'grd-grid-12 grd-with-top-padding standin loss');
-					} else {
-						$('#contract-outcome-label')
-							.attr('class', 'grd-grid-12 grd-no-col-padding standout profit');
-						$('#contract-outcome-profit')
-							.attr('class', 'grd-grid-12 grd-with-top-padding standout profit');
-					}
+			addObserver(newElement[0], observeStyleConfig, function callback(mutations) {
+				if (mutations && mutations[0].oldValue !== $(mutations[0].target)
+					.attr('style')) {
 					window.dispatchEvent(new CustomEvent('confirmationChanged', {}));
-				});
+					onReady(function () {
+						var header = $('#dummyNewPage')
+							.contents()
+							.find('#contract_purchase_heading');
+						if (header.text()
+							.indexOf('This contract') > -1) {
+							return true;
+						} else {
+							return false;
+						}
+					}, function () {
+						var header = $('#dummyNewPage')
+							.contents()
+							.find('#contract_purchase_heading');
+						$('#contract-outcome-label')
+							.text($('#dummyNewPage')
+								.contents()
+								.find('#contract_purchase_profit')
+								.contents()[0].textContent);
+						$('#contract-outcome-profit')
+							.text($('#dummyNewPage')
+								.contents()
+								.find('#contract_purchase_profit>p')
+								.text());
+						$('#contract-outcome-payout')
+							.text($('#dummyNewPage')
+								.contents()
+								.find('#contract_purchase_cost>p')
+								.text());
+						$('#contract-outcome-buyprice')
+							.text($('#dummyNewPage')
+								.contents()
+								.find('#contract_purchase_payout>p')
+								.text());
+						if (header.text()
+							.indexOf('This contract lost') > -1) {
+							$('#contract-outcome-label')
+								.attr('class', 'grd-grid-12 grd-no-col-padding standin loss');
+							$('#contract-outcome-profit')
+								.attr('class', 'grd-grid-12 grd-with-top-padding standin loss');
+						} else {
+							$('#contract-outcome-label')
+								.attr('class', 'grd-grid-12 grd-no-col-padding standout profit');
+							$('#contract-outcome-profit')
+								.attr('class', 'grd-grid-12 grd-with-top-padding standout profit');
+						}
+						window.dispatchEvent(new CustomEvent('purchaseFinished', {}));
+					});
+				}
 			});
 		},
 	];
@@ -301,6 +303,7 @@
 
 	var observeStyleConfig = {
 		attributes: true,
+		attributeOldValue: true,
 		attributeFilter: ['style'],
 	};
 
@@ -363,9 +366,9 @@
 	var run_unit_test = function run_unit_test() {
 		Spec.call(window);
 	};
-	onReady(function(){
+	onReady(function () {
 		return unsafeWindow.runUnitTest;
-	}, function(){
+	}, function () {
 		run_unit_test();
 	});
 })();

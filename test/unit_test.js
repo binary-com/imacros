@@ -106,7 +106,7 @@ window.addEventListener('elementsAdded', function (e) {
 								.text() === "x";
 						})
 						.click();
-					window.addEventListener('cofirmationChanged', function () {
+					window.addEventListener('confirmationChanged', function () {
 						done();
 					});
 				});

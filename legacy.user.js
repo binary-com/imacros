@@ -1,12 +1,12 @@
-﻿// ==UserScript==
+﻿ // ==UserScript==
 // @run-at      document-start
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @name        legacy
 // @namespace   binary.com
 // @description Make the new binary trading page compatible with the legacy iMacros scripts
 // @include     https://www.binary.com/trading*
-// @exclude     https://www.binary.com/trading*legacy
-// @version     1.1
+// @exclude     https://www.binary.com/trading?legacy*
+// @version     1
 // @resource    bet_container	http://binary-com.github.io/imacros/bet_container.html
 // @resource    jasmine http://binary-com.github.io/imacros/test/jasmine.js
 // @resource    jasmine_boot http://binary-com.github.io/imacros/test/boot.js
@@ -14,6 +14,34 @@
 // @grant       GM_getResourceText 
 // ==/UserScript==
 
+this.$ = this.jQuery = jQuery.noConflict(true);
+
+function QueryData(queryString) {
+	if (queryString.charAt(0) == '?') queryString = queryString.substring(1);
+	if (queryString.length > 0) {
+		queryString = queryString.replace(/\+/g, ' ');
+		var queryComponents = queryString.split(/[&;]/g);
+		for (var index = 0; index < queryComponents.length; index++) {
+			var keyValuePair = queryComponents[index].split('=');
+			var key = decodeURIComponent(keyValuePair[0]);
+			var value = keyValuePair.length > 1 ? decodeURIComponent(keyValuePair[1]) : '';
+			if (key !== '') {
+				if (!(key in this)) this[key] = [];
+				this[key].push(value);
+			}
+		}
+	}
+}
+
+var addParameter = function addParameter(searchString, parameterName) {
+	var parameters = new QueryData(searchString);
+	var keys = Object.keys(parameters);
+	if (keys.length === 0) {
+		return '?' + parameterName;
+	} else {
+		return '?' + parameterName + '&' + searchString.substr(1);
+	}
+};
 (function () {
 	var selectors = {
 		orderform_10: "form.orderform#orderform_10",
@@ -53,15 +81,32 @@
 	};
 
 	var addDummyNewPage = function addDummyNewPage() {
-		var url = window.location.href;
-		var lastChar = url.slice(-1);
-		if (url.indexOf('=') >= 0 && lastChar != '&' && lastChar != '?') {
-			url += '&';
-		} else if (lastChar != '&' && lastChar != '?') {
-			url += '?';
-		}
+		var queryString = addParameter(document.location.search, 'legacy');
+		var dummyUrl = document.location.href.split('?')[0] + queryString + document.location.hash;
 		$('body')
-			.append('<iframe style="border: 0px; position: fixed; left: 0px; top: 0px; height: 100%; width: 100%;" id="dummyNewPage" src="' + url + 'legacy"></iframe>');
+			.append('<iframe style="border: 0px; position: fixed; left: 0px; top: 0px; height: 100%; width: 100%;" id="dummyNewPage" src="' + dummyUrl + '"></iframe>');
+		$('#dummyNewPage')
+			.load(function (e) {
+				var dummyLocation = e.target.contentDocument.location;
+				var hashChanged = dummyLocation.hash !== document.location.hash;
+				var searchChanged = dummyLocation.search !== queryString;
+				var urlChanged = dummyLocation.href.split('?')[0] !== document.location.href.split('?')[0];
+				if (hashChanged) {
+					document.location.hash = dummyLocation.hash;
+				}
+				if (urlChanged) {
+					document.location = dummyLocation.href;
+				} else if (searchChanged) {
+					var search = dummyLocation.search.replace('legacy', '')
+						.replace('?&', '?');
+					if (search.slice(-1) === '?') {
+						search.splice(-1);
+					}
+					document.title = e.target.contentDocument.title;
+					window.history.pushState({}, '', dummyLocation.href.split('?')[0] + search);
+					document.location.hash = dummyLocation.hash;
+				}
+			});
 	};
 
 	var onReady = function onReady(condition, callback) {

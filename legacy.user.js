@@ -33,6 +33,10 @@ function QueryData(queryString) {
 	}
 }
 
+var unitTestEvent = function unitTestEvent(eventName) {
+	window.dispatchEvent(new CustomEvent(eventName, {}));
+};
+
 var addParameter = function addParameter(searchString, parameterName) {
 	var parameters = new QueryData(searchString);
 	var keys = Object.keys(parameters);
@@ -154,7 +158,29 @@ var addParameter = function addParameter(searchString, parameterName) {
 		}
 	};
 
+	var cloneElement = function cloneElement(selector){
+		var newElement = $('#dummyNewPage').contents().find(selector);
+		addObserver(newElement[0], {childList: true, characterData:true, subtree:true}, function callback(mutations){
+			var dummyElement = $(selector);
+			var prevElement = dummyElement.prev();
+			var parentElement = dummyElement.parent();
+			if ( prevElement.length === 0 ) {
+				dummyElement.remove();
+				parentElement.prepend(newElement.clone(true, true));
+			} else {
+				dummyElement.remove();
+				newElement.clone(true, true).insertAfter(prevElement);
+			}
+		});	
+	};
+
 	var elementShapes = [
+		function topbar(){
+			cloneElement('#topbar');
+		},
+		function header(){
+			cloneElement('#header');
+		},
 		function bet_calculate() {
 			$('#bet_calculate')
 				.click(function (event) {
@@ -214,7 +240,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 					.text(newElement.text());
 				$(selectors.spot)
 					.attr('class', newElement.attr('class'));
-				window.dispatchEvent(new CustomEvent('spotChanged', {}));
+				unitTestEvent('spotChanged');
 			});
 		},
 		function x() {
@@ -246,7 +272,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 			});
 		},
 		function elementsAdded() {
-			window.dispatchEvent(new CustomEvent('elementsAdded', {}));
+			unitTestEvent('elementsAdded');
 		},
 		function confirmation() {
 			var newElement = $('#dummyNewPage')
@@ -255,7 +281,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 			addObserver(newElement[0], observeStyleConfig, function callback(mutations) {
 				if (mutations && mutations[0].oldValue !== $(mutations[0].target)
 					.attr('style')) {
-					window.dispatchEvent(new CustomEvent('confirmationChanged', {}));
+					unitTestEvent('confirmationChanged');
 					onReady(function () {
 						var header = $('#dummyNewPage')
 							.contents()
@@ -302,7 +328,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 							$('#contract-outcome-profit')
 								.attr('class', 'grd-grid-12 grd-with-top-padding standout profit');
 						}
-						window.dispatchEvent(new CustomEvent('purchaseFinished', {}));
+						unitTestEvent('purchaseFinished');
 					});
 				}
 			});

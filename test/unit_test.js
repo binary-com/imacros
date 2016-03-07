@@ -143,6 +143,9 @@ window.addEventListener('elementsAdded', function (e) {
 						done();
 					});
 				});
+				it('balances match', function () {
+					expect(contents.find('#balance').text()).toBe($('#balance').text());
+				});
 				it('purchase result strings are the same', function () {
 					expect($('#contract-outcome-label')
 							.text())

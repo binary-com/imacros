@@ -1,4 +1,4 @@
-var selectors = {
+var selectors = { 
 	orderform_10: "form.orderform#orderform_10",
 	orderform_20: "form.orderform#orderform_20",
 	form0: "form[name=form0]",
@@ -15,26 +15,10 @@ var selectors = {
 	amount_type: "[name=form0] select[name=amount_type]#amount_type.unbind_later",
 	bet_underlying: "[name=form0] select[name=underlying_symbol]#bet_underlying.unbind_later",
 	spot: "span#spot",
-};
-
-var onReady = function onReady(condition, callback) {
-	var intervalID = setInterval(function () {
-		if (condition()) {
-			clearInterval(intervalID);
-			callback();
-		}
-	}, 500);
-};
-var addObserver = function addObserver(el, config, callback, once) {
-	var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-	var observer = new MutationObserver(function (mutations) {
-		callback(mutations);
-		if (once) {
-			observer.disconnect();
-		}
-	});
-	observer.observe(el, config);
-};
+	expiry_type: "#expiry_type",
+	bet_currency: "#bet_currency",
+	atleast: "#atleast",
+};  
 
 window.addEventListener('elementsAdded', function (e) {
 	describe('Dummy new page iframe', function () {
@@ -94,6 +78,30 @@ window.addEventListener('elementsAdded', function (e) {
 			expect(contents.find('#amount_type')
 					.val())
 				.toBe($('#amount_type')
+					.val());
+		});
+		it('duration_units matches duration_units', function () {
+			expect(contents.find('#duration_units')
+					.val())
+				.toBe($('#duration_units')
+					.val());
+		});
+		it('expiry_type matches expiry_type', function () {
+			expect(contents.find('#expiry_type')
+					.val())
+				.toBe($('#expiry_type')
+					.val());
+		});
+		it('currency matches bet_currency', function () {
+			expect(contents.find('#currency')
+					.val())
+				.toBe($('#bet_currency')
+					.val());
+		});
+		it('date_start matches atleast', function () {
+			expect(contents.find('#date_start')
+					.val())
+				.toBe($('#atleast')
 					.val());
 		});
 		describe('async tests', function () {

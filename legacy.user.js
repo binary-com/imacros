@@ -64,6 +64,9 @@ var addParameter = function addParameter(searchString, parameterName) {
 		amount_type: "[name=form0] select[name=amount_type]#amount_type.unbind_later",
 		bet_underlying: "[name=form0] select[name=underlying_symbol]#bet_underlying.unbind_later",
 		spot: "span#spot",
+		expiry_type: "#expiry_type",
+		bet_currency: "#bet_currency",
+		atleast: "#atleast",
 	};
 
 	var hideElement = function hideElement(obj) {
@@ -129,16 +132,25 @@ var addParameter = function addParameter(searchString, parameterName) {
 		hideElement($('#page-wrapper'));
 	};
 
+	var triggerChange = function triggerChange(element) {
+		element.dispatchEvent(new Event('change'));
+		element.dispatchEvent(new Event('input'));
+	};
+
 	var addEventRedirection = function addEventRedirection(eventName, legacySelector, newElement) {
 		$(legacySelector)
 			.on(eventName, function (event) {
 				event.preventDefault();
 				newElement.val(event.target.value);
-				newElement[0].dispatchEvent(new Event('change'));
+				triggerChange(newElement[0]);
 			});
-		newElement.on(eventName, function (event) {
-			newElement.val($(legacySelector)
-				.val());
+		newElement[0].addEventListener('input', function(event){
+			event.preventDefault();
+			newElement.val($(legacySelector).val());
+		});
+		newElement[0].addEventListener('change', function(event){
+			event.preventDefault();
+			newElement.val($(legacySelector).val());
 		});
 	};
 
@@ -154,7 +166,6 @@ var addParameter = function addParameter(searchString, parameterName) {
 		} else {
 			newElement.val($(legacySelector)
 				.val());
-			newElement[0].dispatchEvent(new Event('input'));
 		}
 	};
 
@@ -217,6 +228,13 @@ var addParameter = function addParameter(searchString, parameterName) {
 				}
 			});
 		},
+		function atleast() {
+			$(selectors.atleast).children().remove();
+			$('#dummyNewPage').contents().find('#date_start').children().each(function(){
+				$(selectors.atleast).append($(this).clone(true, true));
+			});
+			syncElement('change', selectors.atleast, '#date_start');
+		},
 		function underlying() {
 			syncElement('change', selectors.bet_underlying, '#underlying');
 		},
@@ -225,6 +243,15 @@ var addParameter = function addParameter(searchString, parameterName) {
 		},
 		function duration_amount() {
 			syncElement('input change paste', selectors.duration_amount, '#duration_amount');
+		},
+		function duration_units() {
+			syncElement('change', selectors.duration_units, '#duration_units');
+		},
+		function expiry_type() {
+			syncElement('change', selectors.expiry_type, '#expiry_type');
+		},
+		function bet_currency() {
+			syncElement('change', selectors.bet_currency, '#currency');
 		},
 		function amount_type() {
 			syncElement('change', selectors.amount_type, '#amount_type');
@@ -256,7 +283,8 @@ var addParameter = function addParameter(searchString, parameterName) {
 					return $(this)
 					.text() === "x";
 				})
-			.click(function () {
+			.click(function (event) {
+				event.preventDefault();
 				newElement[0].click();
 			});
 		},
@@ -269,6 +297,10 @@ var addParameter = function addParameter(searchString, parameterName) {
 				syncElement(null, selectors.amount, '#amount');
 				syncElement(null, selectors.duration_amount, '#duration_amount');
 				syncElement(null, selectors.amount_type, '#amount_type');
+				syncElement(null, selectors.duration_units, '#duration_units');
+				syncElement(null, selectors.expiry_type, '#expiry_type');
+				syncElement(null, selectors.bet_currency, '#currency');
+				syncElement(null, selectors.atleast, '#date_start');
 			});
 		},
 		function elementsAdded() {
@@ -394,12 +426,17 @@ var addParameter = function addParameter(searchString, parameterName) {
 				.contents()
 				.find('#duration_units');
 			duration_units.val('t');
-			duration_units[0].dispatchEvent(new Event('change'));
+			triggerChange(duration_units[0]);
+			var expiry_type = $('#dummyNewPage')
+				.contents()
+				.find('#expiry_type');
+			expiry_type.val('duration');
+			triggerChange(duration_units[0]);
 			var contract_markets = $('#dummyNewPage')
 				.contents()
 				.find('#contract_markets');
 			contract_markets.val('random');
-			contract_markets[0].dispatchEvent(new Event('change'));
+			triggerChange(contract_markets[0]);
 			onReady(function () {
 				var loading = $('#dummyNewPage')
 					.contents()

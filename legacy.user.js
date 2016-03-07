@@ -73,6 +73,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 		var html = document.createElement('html');
 		var head = document.createElement('head');
 		var body = document.createElement('body');
+		body.id = 'betpage';
 		html.appendChild(head);
 		html.appendChild(body);
 		document.appendChild(html);
@@ -116,11 +117,8 @@ var addParameter = function addParameter(searchString, parameterName) {
 
 	var addLegacyElements = function addLegacyElements() {
 		$('body')
-			.append('<div id="mockElements"></div>');
-		var mockElements = $('#mockElements');
-		mockElements
 			.append(GM_getResourceText('bet_container'));
-		hideElement(mockElements);
+		hideElement($('#page-wrapper'));
 		var faulty = false;
 		Object.keys(selectors)
 			.forEach(function (key) {

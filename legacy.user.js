@@ -1,4 +1,4 @@
-// ==UserScript==
+﻿// ==UserScript==
 // @run-at      document-start
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @name        legacy
@@ -45,17 +45,21 @@ var addParameter = function addParameter(searchString, parameterName) {
 (function () {
 	var selectors = {
 		orderform_10: "form.orderform#orderform_10",
-		btn_buybet_10: "button[name=btn_buybet_10]",
 		orderform_20: "form.orderform#orderform_20",
-		btn_buybet_20: "button[name=btn_buybet_20]",
 		form0: "form[name=form0]",
+		profit_table: "a:contains('Profit Table')",
 		bet_calculate: "#bet_calculate",
-		amount: "#amount",
-		duration_amount: "#duration_amount",
-		duration_units: "#duration_units",
-		amount_type: "#amount_type",
-		bet_underlying: "#bet_underlying",
-		spot: "#spot",
+		get_prices: "[name=form0] button:contains('Get Prices')",
+		btn_buybet_10: "button[name=btn_buybet_10]",
+		btn_buybet_20: "button[name=btn_buybet_20]",
+		content: "div#content",
+		higher: "h4:contains('higher')",
+		amount: "[name=form0] input:text#amount",
+		duration_amount: "[name=form0] input:text#duration_amount",
+		duration_units: "[name=form0] select#duration_units",
+		amount_type: "[name=form0] select[name=amount_type]#amount_type.unbind_later",
+		bet_underlying: "[name=form0] select[name=underlying_symbol]#bet_underlying.unbind_later",
+		spot: "span#spot",
 	};
 
 	var hideElement = function hideElement(obj) {
@@ -119,18 +123,6 @@ var addParameter = function addParameter(searchString, parameterName) {
 		$('body')
 			.append(GM_getResourceText('bet_container'));
 		hideElement($('#page-wrapper'));
-		var faulty = false;
-		Object.keys(selectors)
-			.forEach(function (key) {
-				if ($(selectors[key])
-					.length !== 1) {
-					faulty = true;
-					console.log(key);
-				}
-			});
-		if (!faulty) {
-			console.log('All Mock Elements were added successfully');
-		}
 	};
 
 	var addEventRedirection = function addEventRedirection(eventName, legacySelector, newElement) {
@@ -225,22 +217,22 @@ var addParameter = function addParameter(searchString, parameterName) {
 				window.dispatchEvent(new CustomEvent('spotChanged', {}));
 			});
 		},
-		function a() {
+		function x() {
 			var newElement = $('#dummyNewPage')
 				.contents()
 				.find('a')
 				.filter(function (index) {
 					return $(this)
-						.text() === "x";
+					.text() === "x";
 				});
 			$('a')
 				.filter(function (index) {
 					return $(this)
-						.text() === "x";
+					.text() === "x";
 				})
-				.click(function () {
-					newElement[0].click();
-				});
+			.click(function () {
+				newElement[0].click();
+			});
 		},
 		function resync() {
 			var loading = $('#dummyNewPage')

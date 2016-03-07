@@ -1,3 +1,22 @@
+var selectors = {
+	orderform_10: "form.orderform#orderform_10",
+	orderform_20: "form.orderform#orderform_20",
+	form0: "form[name=form0]",
+	profit_table: "a:contains('Profit Table')",
+	bet_calculate: "#bet_calculate",
+	get_prices: "[name=form0] button:contains('Get Prices')",
+	btn_buybet_10: "button[name=btn_buybet_10]",
+	btn_buybet_20: "button[name=btn_buybet_20]",
+	content: "div#content",
+	higher: "h4:contains('higher')",
+	amount: "[name=form0] input:text#amount",
+	duration_amount: "[name=form0] input:text#duration_amount",
+	duration_units: "[name=form0] select#duration_units",
+	amount_type: "[name=form0] select[name=amount_type]#amount_type.unbind_later",
+	bet_underlying: "[name=form0] select[name=underlying_symbol]#bet_underlying.unbind_later",
+	spot: "span#spot",
+};
+
 var onReady = function onReady(condition, callback) {
 	var intervalID = setInterval(function () {
 		if (condition()) {
@@ -37,9 +56,21 @@ window.addEventListener('elementsAdded', function (e) {
 	});
 	describe('Dummy elements', function () {
 		var contents;
+		var faulty = false;
 		beforeAll(function () {
 			contents = $('#dummyNewPage')
 				.contents();
+			Object.keys(selectors)
+				.forEach(function (key) {
+					if ($(selectors[key])
+						.length < 1) {
+							faulty = true;
+							console.log('%cAbsent Element ' + key, 'color: red');
+						}
+				});
+		});
+		it('all elements are present', function () {
+			expect(faulty).toBe(false);
 		});
 		it('underlying matches bet_underlying', function () {
 			expect(contents.find('#underlying')

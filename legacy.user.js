@@ -33,7 +33,7 @@ function QueryData(queryString) {
 	}
 }
 
-var unitTestEvent = function unitTestEvent(eventName) {
+var broadcast = function broadcast(eventName) {
 	window.dispatchEvent(new CustomEvent(eventName, {}));
 };
 
@@ -133,6 +133,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 	};
 
 	var triggerChange = function triggerChange(element) {
+		contractReady = false;
 		element.dispatchEvent(new Event('change'));
 		element.dispatchEvent(new Event('input'));
 	};
@@ -158,7 +159,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 		var newElement = $('#dummyNewPage')
 			.contents()
 			.find(newSelector);
-
+		
 		if (eventType !== null) {
 			$(legacySelector)
 				.val(newElement.val());
@@ -184,6 +185,23 @@ var addParameter = function addParameter(searchString, parameterName) {
 			}
 		});	
 	};
+
+
+	var ConfirmationCtrl = function ConfirmationCtrl() {
+		var confirmationDialog;
+		return {
+			hide: function hide(){
+				confirmationDialog = $('#buy_confirm_container').clone(true, true);
+				$('#buy_confirm_container').remove();
+			},
+			show: function show(){
+				if ( confirmationDialog ) {
+					$('#bet_calculation_container').append(confirmationDialog);
+				}
+			},
+		};
+	};
+	var confirmationCtrl = ConfirmationCtrl();
 
 	var elementShapes = [
 		function topbar(){
@@ -267,7 +285,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 					.text(newElement.text());
 				$(selectors.spot)
 					.attr('class', newElement.attr('class'));
-				unitTestEvent('spotChanged');
+				broadcast('spotChanged');
 			});
 		},
 		function x() {
@@ -289,10 +307,10 @@ var addParameter = function addParameter(searchString, parameterName) {
 			});
 		},
 		function resync() {
-			var loading = $('#dummyNewPage')
+			var loading_container3 = $('#dummyNewPage')
 				.contents()
 				.find('#loading_container3');
-			addObserver(loading[0], observeStyleConfig, function callback() {
+			addObserver(loading_container3[0], observeStyleConfig, function callback() {
 				syncElement(null, selectors.bet_underlying, '#underlying');
 				syncElement(null, selectors.amount, '#amount');
 				syncElement(null, selectors.duration_amount, '#duration_amount');
@@ -302,9 +320,22 @@ var addParameter = function addParameter(searchString, parameterName) {
 				syncElement(null, selectors.bet_currency, '#currency');
 				syncElement(null, selectors.atleast, '#date_start');
 			});
+			var loading_container2 = $('#dummyNewPage')
+				.contents()
+				.find('#loading_container2');
+			addObserver(loading_container2[0], observeStyleConfig, function callback() {
+				if ( loading_container2.css('display') === 'none' ) {
+					broadcast('contractReady');
+				} else {
+					broadcast('contractProgress');
+				}
+			});
+		},
+		function confirmationDelete() {
+			confirmationCtrl.hide();
 		},
 		function elementsAdded() {
-			unitTestEvent('elementsAdded');
+			broadcast('elementsAdded');
 		},
 		function confirmation() {
 			var newElement = $('#dummyNewPage')
@@ -313,7 +344,19 @@ var addParameter = function addParameter(searchString, parameterName) {
 			addObserver(newElement[0], observeStyleConfig, function callback(mutations) {
 				if (mutations && mutations[0].oldValue !== $(mutations[0].target)
 					.attr('style')) {
-					unitTestEvent('confirmationChanged');
+					if ($(mutations[0].target).css('display') === 'none') {
+						confirmationCtrl.hide();
+						broadcast('confirmationClosed');
+					} else {
+						confirmationCtrl.show();
+						$('#bet-confirm-header').text($('#dummyNewPage').contents().find('#contract_purchase_heading').text());
+						$('#contract-outcome-buyprice')
+							.text('0.00');
+						$('#contract-outcome-profit')
+							.text('0.00');
+						$('#contract-outcome-payout')
+							.text('0.00');
+					}
 					onReady(function () {
 						var header = $('#dummyNewPage')
 							.contents()
@@ -328,25 +371,25 @@ var addParameter = function addParameter(searchString, parameterName) {
 						var header = $('#dummyNewPage')
 							.contents()
 							.find('#contract_purchase_heading');
-						$('#contract-outcome-label')
+						$('#contract-outcome-buyprice')
 							.text($('#dummyNewPage')
 								.contents()
-								.find('#contract_purchase_profit')
-								.contents()[0].textContent);
+								.find('#contract_purchase_payout>p')
+								.text());
 						$('#contract-outcome-profit')
 							.text($('#dummyNewPage')
 								.contents()
 								.find('#contract_purchase_profit>p')
 								.text());
+						$('#contract-outcome-label')
+							.text($('#dummyNewPage')
+								.contents()
+								.find('#contract_purchase_profit')
+								.contents()[0].textContent);
 						$('#contract-outcome-payout')
 							.text($('#dummyNewPage')
 								.contents()
 								.find('#contract_purchase_cost>p')
-								.text());
-						$('#contract-outcome-buyprice')
-							.text($('#dummyNewPage')
-								.contents()
-								.find('#contract_purchase_payout>p')
 								.text());
 						if (header.text()
 							.indexOf('This contract lost') > -1) {
@@ -360,7 +403,8 @@ var addParameter = function addParameter(searchString, parameterName) {
 							$('#contract-outcome-profit')
 								.attr('class', 'grd-grid-12 grd-with-top-padding standout profit');
 						}
-						unitTestEvent('purchaseFinished');
+						$('#bet-confirm-header').text($('#dummyNewPage').contents().find('#contract_purchase_heading').text());
+						broadcast('purchaseFinished');
 					});
 				}
 			});
@@ -373,11 +417,27 @@ var addParameter = function addParameter(searchString, parameterName) {
 		});
 	};
 
+	var contractReady = false;
+	window.addEventListener('contractReady', function(event) {
+		contractReady = true;
+	});
+	window.addEventListener('contractProgress', function(event) {
+		contractReady = false;
+	});
+
 	var addClickRedirection = function addClickRedirection(legacySelector, newElement) {
 		$(legacySelector)
 			.click(function (event) {
 				event.preventDefault();
-				newElement.click();
+				if ( contractReady ) {
+					newElement.click();
+				} else {
+					var click = function click(){
+						newElement.click();
+						window.removeEventListener('contractReady', click);
+					};
+					window.addEventListener('contractReady', click);
+				}
 			});
 	};
 

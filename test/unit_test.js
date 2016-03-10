@@ -147,7 +147,7 @@ window.addEventListener('elementsAdded', function (e) {
 								.text() === "x";
 						})
 						.click();
-					window.addEventListener('confirmationChanged', function () {
+					window.addEventListener('confirmationClosed', function () {
 						done();
 					});
 				});

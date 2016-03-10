@@ -165,22 +165,22 @@ window.addEventListener('elementsAdded', function (e) {
 							.contents()[0].textContent);
 				});
 				it('purchase profits are the same', function () {
-					expect($('#contract-outcome-profit')
-							.text())
-						.toBe(contents.find('#contract_purchase_profit>p')
-							.text());
+					expect(parseFloat($('#contract-outcome-profit')
+							.text()))
+						.toBe(parseFloat(contents.find('#contract_purchase_profit>p')
+							.text()));
 				});
 				it('purchase payouts are the same', function () {
-					expect($('#contract-outcome-payout')
-							.text())
-						.toBe(contents.find('#contract_purchase_cost>p')
-							.text());
+					expect(parseFloat($('#contract-outcome-payout')
+							.text()))
+						.toBe(parseFloat(contents.find('#contract_purchase_cost>p')
+							.text()));
 				});
 				it('purchase prices are the same', function () {
-					expect($('#contract-outcome-buyprice')
-							.text())
-						.toBe(contents.find('#contract_purchase_payout>p')
-							.text());
+					expect(parseFloat($('#contract-outcome-buyprice')
+							.text()))
+						.toBe(parseFloat(contents.find('#contract_purchase_payout>p')
+							.text()));
 				});
 				it('result color is appropriate', function () {
 					if (contents.find('#contract_purchase_heading')

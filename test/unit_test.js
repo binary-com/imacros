@@ -1,4 +1,4 @@
-var selectors = { 
+var selectors = {
 	orderform_10: "form.orderform#orderform_10",
 	orderform_20: "form.orderform#orderform_20",
 	form0: "form[name=form0]",
@@ -18,7 +18,7 @@ var selectors = {
 	expiry_type: "#expiry_type",
 	bet_currency: "#bet_currency",
 	atleast: "#atleast",
-};  
+};
 
 window.addEventListener('elementsAdded', function (e) {
 	describe('Dummy new page iframe', function () {
@@ -48,13 +48,14 @@ window.addEventListener('elementsAdded', function (e) {
 				.forEach(function (key) {
 					if ($(selectors[key])
 						.length < 1) {
-							faulty = true;
-							console.log('%cAbsent Element ' + key, 'color: red');
-						}
+						faulty = true;
+						console.log('%cAbsent Element ' + key, 'color: red');
+					}
 				});
 		});
 		it('all elements are present', function () {
-			expect(faulty).toBe(false);
+			expect(faulty)
+				.toBe(false);
 		});
 		it('underlying matches bet_underlying', function () {
 			expect(contents.find('#underlying')
@@ -147,12 +148,15 @@ window.addEventListener('elementsAdded', function (e) {
 								.text() === "x";
 						})
 						.click();
-					window.addEventListener('confirmationChanged', function () {
+					window.addEventListener('confirmationClosed', function () {
 						done();
 					});
 				});
 				it('balances match', function () {
-					expect(contents.find('#balance').text()).toBe($('#balance').text());
+					expect(contents.find('#balance')
+							.text())
+						.toBe($('#balance')
+							.text());
 				});
 				it('purchase result strings are the same', function () {
 					expect($('#contract-outcome-label')

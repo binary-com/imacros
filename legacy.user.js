@@ -180,7 +180,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 			childList: true,
 			characterData: true,
 			subtree: true
-		}, function callback(mutations) {
+		}, null, function callback(mutations) {
 			var dummyElement = $(selector);
 			var prevElement = dummyElement.prev();
 			var parentElement = dummyElement.parent();
@@ -233,7 +233,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 				.contents()
 				.find('#purchase_button_top');
 			addClickRedirection(selectors.btn_buybet_10, purchase_button_top);
-			addObserver(purchase_button_top[0], observeStyleConfig, function (mutations) {
+			addObserver(purchase_button_top[0], observeStyleConfig, null, function (mutations) {
 				if (purchase_button_top.css('display') === 'none') {
 					$('.price_box_first #bet_cal_buy')
 						.css('display', 'none');
@@ -248,7 +248,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 				.contents()
 				.find('#purchase_button_bottom');
 			addClickRedirection(selectors.btn_buybet_20, purchase_button_bottom);
-			addObserver(purchase_button_bottom[0], observeStyleConfig, function (mutations) {
+			addObserver(purchase_button_bottom[0], observeStyleConfig, null, function (mutations) {
 				if (purchase_button_bottom.css('display') === 'none') {
 					$('.price_box_last #bet_cal_buy')
 						.css('display', 'none');
@@ -300,7 +300,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 				.find('#spot');
 			addObserver(newElement[0], {
 				childList: true
-			}, function callback() {
+			}, null, function callback() {
 				$(selectors.spot)
 					.text(newElement.text());
 				$(selectors.spot)
@@ -330,7 +330,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 			var loading_container3 = $('#dummyNewPage')
 				.contents()
 				.find('#loading_container3');
-			addObserver(loading_container3[0], observeStyleConfig, function callback() {
+			addObserver(loading_container3[0], observeStyleConfig, null, function callback() {
 				syncElement(null, selectors.bet_underlying, '#underlying');
 				syncElement(null, selectors.amount, '#amount');
 				syncElement(null, selectors.duration_amount, '#duration_amount');
@@ -343,7 +343,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 			var loading_container2 = $('#dummyNewPage')
 				.contents()
 				.find('#loading_container2');
-			addObserver(loading_container2[0], observeStyleConfig, function callback() {
+			addObserver(loading_container2[0], observeStyleConfig, null, function callback() {
 				if (loading_container2.css('display') === 'none') {
 					broadcast('contractReady');
 				} else {
@@ -361,7 +361,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 			var newElement = $('#dummyNewPage')
 				.contents()
 				.find('#contract_confirmation_container');
-			addObserver(newElement[0], observeStyleConfig, function callback(mutations) {
+			addObserver(newElement[0], observeStyleConfig, null, function callback(mutations) {
 				if (mutations && mutations[0].oldValue !== $(mutations[0].target)
 					.attr('style')) {
 					if ($(mutations[0].target)
@@ -376,65 +376,78 @@ var addParameter = function addParameter(searchString, parameterName) {
 								.find('#contract_purchase_heading')
 								.text());
 						$('#contract-outcome-buyprice')
-							.text('0.00');
+							.text('');
 						$('#contract-outcome-profit')
-							.text('0.00');
+							.text('');
 						$('#contract-outcome-payout')
-							.text('0.00');
+							.text('');
 					}
-					onReady(function () {
-						var header = $('#dummyNewPage')
-							.contents()
-							.find('#contract_purchase_heading');
-						if (header.text()
-							.indexOf('This contract') > -1) {
-							return true;
-						} else {
-							return false;
-						}
-					}, function () {
-						var header = $('#dummyNewPage')
-							.contents()
-							.find('#contract_purchase_heading');
-						$('#contract-outcome-buyprice')
-							.text($('#dummyNewPage')
+					addObserver($('#dummyNewPage')
+						.contents()
+						.find('#contract_purchase_heading')[0], {
+							childList: true
+						},
+						function () {
+							var header = $('#dummyNewPage')
 								.contents()
-								.find('#contract_purchase_payout>p')
-								.text());
-						$('#contract-outcome-profit')
-							.text($('#dummyNewPage')
+								.find('#contract_purchase_heading');
+							if (header.text()
+								.indexOf('This contract') > -1) {
+								return true;
+							} else {
+								return false;
+							}
+						},
+						function () {
+							var header = $('#dummyNewPage')
 								.contents()
-								.find('#contract_purchase_profit>p')
-								.text());
-						$('#contract-outcome-label')
-							.text($('#dummyNewPage')
-								.contents()
-								.find('#contract_purchase_profit')
-								.contents()[0].textContent);
-						$('#contract-outcome-payout')
-							.text($('#dummyNewPage')
-								.contents()
-								.find('#contract_purchase_cost>p')
-								.text());
-						if (header.text()
-							.indexOf('This contract lost') > -1) {
-							$('#contract-outcome-label')
-								.attr('class', 'grd-grid-12 grd-no-col-padding standin loss');
+								.find('#contract_purchase_heading');
+							var lost = false;
+							if (header.text()
+								.indexOf('This contract lost') > -1) {
+								lost = true;
+							}
+							$('#contract-outcome-buyprice')
+								.text(parseFloat($('#dummyNewPage')
+										.contents()
+										.find('#contract_purchase_payout>p')
+										.text())
+									.toFixed(2));
 							$('#contract-outcome-profit')
-								.attr('class', 'grd-grid-12 grd-with-top-padding standin loss');
-						} else {
+								.text(((lost) ? '-' : '') + parseFloat($('#dummyNewPage')
+										.contents()
+										.find('#contract_purchase_profit>p')
+										.text())
+									.toFixed(2));
 							$('#contract-outcome-label')
-								.attr('class', 'grd-grid-12 grd-no-col-padding standout profit');
-							$('#contract-outcome-profit')
-								.attr('class', 'grd-grid-12 grd-with-top-padding standout profit');
-						}
-						$('#bet-confirm-header')
-							.text($('#dummyNewPage')
-								.contents()
-								.find('#contract_purchase_heading')
-								.text());
-						broadcast('purchaseFinished');
-					});
+								.text($('#dummyNewPage')
+									.contents()
+									.find('#contract_purchase_profit')
+									.contents()[0].textContent);
+							$('#contract-outcome-payout')
+								.text(parseFloat($('#dummyNewPage')
+										.contents()
+										.find('#contract_purchase_cost>p')
+										.text())
+									.toFixed(2));
+							if (lost) {
+								$('#contract-outcome-label')
+									.attr('class', 'grd-grid-12 grd-no-col-padding standin loss');
+								$('#contract-outcome-profit')
+									.attr('class', 'grd-grid-12 grd-with-top-padding standin loss');
+							} else {
+								$('#contract-outcome-label')
+									.attr('class', 'grd-grid-12 grd-no-col-padding standout profit');
+								$('#contract-outcome-profit')
+									.attr('class', 'grd-grid-12 grd-with-top-padding standout profit');
+							}
+							$('#bet-confirm-header')
+								.text($('#dummyNewPage')
+									.contents()
+									.find('#contract_purchase_heading')
+									.text());
+							broadcast('purchaseFinished');
+						});
 				}
 			});
 		},
@@ -470,11 +483,17 @@ var addParameter = function addParameter(searchString, parameterName) {
 			});
 	};
 
-	var addObserver = function addObserver(el, config, callback) {
+	var addObserver = function addObserver(el, config, condition, callback) {
 		var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-		callback();
 		var observer = new MutationObserver(function (mutations) {
-			callback(mutations);
+			if (typeof condition === 'function') {
+				if (condition(mutations)) {
+					observer.disconnect();
+					callback(mutations);
+				}
+			} else {
+				callback(mutations);
+			}
 		});
 		observer.observe(el, config);
 	};

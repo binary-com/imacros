@@ -1,4 +1,4 @@
-﻿ // ==UserScript==
+// ==UserScript==
 // @run-at      document-start
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @name        legacy

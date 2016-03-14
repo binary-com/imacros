@@ -308,11 +308,16 @@ var addParameter = function addParameter(searchString, parameterName) {
 		function spot() {
 			var newElement = dummySelector('#spot');
 			var callback = function callback() {
-				$(selectors.spot)
-					.text(newElement.text());
-				$(selectors.spot)
-					.attr('class', newElement.attr('class'));
-				broadcast('spotChanged');
+				if (newElement.text()
+					.length !== 0) {
+					$(selectors.spot)
+						.text(newElement.text());
+					if (newElement.attr('class') !== undefined) {
+						$(selectors.spot)
+							.attr('class', newElement.attr('class'));
+					}
+					broadcast('spotChanged');
+				}
 			};
 			callback();
 			addObserver(newElement[0], {

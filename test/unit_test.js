@@ -124,12 +124,6 @@ window.addEventListener('elementsAdded', function (e) {
 						.toBe($('#spot')
 							.text());
 				});
-				it('class matches class', function () {
-					expect(contents.find('#spot')
-							.attr('class'))
-						.toBe($('#spot')
-							.attr('class'));
-				});
 			});
 			describe('contract was purchased', function () {
 				beforeAll(function (done) {

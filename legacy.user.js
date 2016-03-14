@@ -47,6 +47,11 @@ var addParameter = function addParameter(searchString, parameterName) {
 	}
 };
 (function () {
+	var dummySelector = function dummySelector(selector) {
+		return $('#dummyNewPage')
+			.contents()
+			.find(selector);
+	};
 	var selectors = {
 		orderform_10: "form.orderform#orderform_10",
 		orderform_20: "form.orderform#orderform_20",
@@ -119,17 +124,13 @@ var addParameter = function addParameter(searchString, parameterName) {
 
 	var onReady = function onReady(objectSelector, condition, callback) {
 		onCondition(function () {
-			return $('#dummyNewPage')
-				.contents()
-				.find(objectSelector)
+			return dummySelector(objectSelector)
 				.length !== 0;
 		}, function () {
-			addObserver($('#dummyNewPage')
-				.contents()
-				.find(objectSelector)[0], {
-					childList: true,
-					attributes: true
-				}, condition, callback);
+			addObserver(dummySelector(objectSelector)[0], {
+				childList: true,
+				attributes: true
+			}, condition, callback);
 		});
 	};
 
@@ -174,9 +175,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 	};
 
 	var syncElement = function syncElement(eventType, legacySelector, newSelector) {
-		var newElement = $('#dummyNewPage')
-			.contents()
-			.find(newSelector);
+		var newElement = dummySelector(newSelector);
 
 		if (eventType !== null) {
 			$(legacySelector)
@@ -189,9 +188,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 	};
 
 	var cloneElement = function cloneElement(selector) {
-		var newElement = $('#dummyNewPage')
-			.contents()
-			.find(selector);
+		var newElement = dummySelector(selector);
 		var callback = function callback(mutations) {
 			var dummyElement = $(selector);
 			var prevElement = dummyElement.prev();
@@ -247,9 +244,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 				});
 		},
 		function purchase_top() {
-			var purchase_button_top = $('#dummyNewPage')
-				.contents()
-				.find('#purchase_button_top');
+			var purchase_button_top = dummySelector('#purchase_button_top');
 			addClickRedirection(selectors.btn_buybet_10, purchase_button_top);
 			addObserver(purchase_button_top[0], observeStyleConfig, null, function (mutations) {
 				if (purchase_button_top.attr('style')
@@ -263,9 +258,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 			});
 		},
 		function purchase_bottom() {
-			var purchase_button_bottom = $('#dummyNewPage')
-				.contents()
-				.find('#purchase_button_bottom');
+			var purchase_button_bottom = dummySelector('#purchase_button_bottom');
 			addClickRedirection(selectors.btn_buybet_20, purchase_button_bottom);
 			addObserver(purchase_button_bottom[0], observeStyleConfig, null, function (mutations) {
 				if (purchase_button_bottom.attr('style')
@@ -282,9 +275,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 			$(selectors.atleast)
 				.children()
 				.remove();
-			$('#dummyNewPage')
-				.contents()
-				.find('#date_start')
+			dummySelector('#date_start')
 				.children()
 				.each(function () {
 					$(selectors.atleast)
@@ -315,9 +306,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 			syncElement('change', selectors.amount_type, '#amount_type');
 		},
 		function spot() {
-			var newElement = $('#dummyNewPage')
-				.contents()
-				.find('#spot');
+			var newElement = dummySelector('#spot');
 			var callback = function callback() {
 				$(selectors.spot)
 					.text(newElement.text());
@@ -331,9 +320,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 			}, null, callback);
 		},
 		function x() {
-			var newElement = $('#dummyNewPage')
-				.contents()
-				.find('a')
+			var newElement = dummySelector('a')
 				.filter(function (index) {
 					return $(this)
 						.text() === "x";
@@ -349,9 +336,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 				});
 		},
 		function resync() {
-			var loading_container3 = $('#dummyNewPage')
-				.contents()
-				.find('#loading_container3');
+			var loading_container3 = dummySelector('#loading_container3');
 			var callback = function callback() {
 				syncElement(null, selectors.bet_underlying, '#underlying');
 				syncElement(null, selectors.amount, '#amount');
@@ -364,12 +349,10 @@ var addParameter = function addParameter(searchString, parameterName) {
 			};
 			callback();
 			addObserver(loading_container3[0], observeStyleConfig, null, callback);
-			var loading_container2 = $('#dummyNewPage')
-				.contents()
-				.find('#loading_container2');
-			addObserver(loading_container2[0], observeStyleConfig, null, function callback() {
+			var loading_container2 = dummySelector('#loading_container2');
+			addObserver(loading_container2[0], observeStyleConfig, null, function callback(mutations) {
 				if (loading_container2.attr('style')
-					.indexOf('display: none') > -1) {
+					.indexOf('display: none') > -1 && loading_container2.attr('style') === mutations[0].oldValue) {
 					broadcast('contractReady');
 				} else {
 					broadcast('contractProgress');
@@ -379,13 +362,8 @@ var addParameter = function addParameter(searchString, parameterName) {
 		function confirmationDelete() {
 			confirmationCtrl.hide();
 		},
-		function elementsAdded() {
-			broadcast('elementsAdded');
-		},
 		function confirmation() {
-			var newElement = $('#dummyNewPage')
-				.contents()
-				.find('#contract_confirmation_container');
+			var newElement = dummySelector('#contract_confirmation_container');
 			addObserver(newElement[0], observeStyleConfig, null, function callback(mutations) {
 				if (mutations && mutations[0].oldValue !== $(mutations[0].target)
 					.attr('style')) {
@@ -397,9 +375,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 					} else {
 						confirmationCtrl.show();
 						$('#bet-confirm-header')
-							.text($('#dummyNewPage')
-								.contents()
-								.find('#contract_purchase_heading')
+							.text(dummySelector('#contract_purchase_heading')
 								.text());
 						$('#contract-outcome-buyprice')
 							.text('');
@@ -420,26 +396,18 @@ var addParameter = function addParameter(searchString, parameterName) {
 							lost = true;
 						}
 						$('#contract-outcome-buyprice')
-							.text(parseFloat($('#dummyNewPage')
-									.contents()
-									.find('#contract_purchase_payout>p')
+							.text(parseFloat(dummySelector('#contract_purchase_payout>p')
 									.text())
 								.toFixed(2));
 						$('#contract-outcome-profit')
-							.text(((lost) ? '-' : '') + parseFloat($('#dummyNewPage')
-									.contents()
-									.find('#contract_purchase_profit>p')
+							.text(((lost) ? '-' : '') + parseFloat(dummySelector('#contract_purchase_profit>p')
 									.text())
 								.toFixed(2));
 						$('#contract-outcome-label')
-							.text($('#dummyNewPage')
-								.contents()
-								.find('#contract_purchase_profit')
+							.text(dummySelector('#contract_purchase_profit')
 								.contents()[0].textContent);
 						$('#contract-outcome-payout')
-							.text(parseFloat($('#dummyNewPage')
-									.contents()
-									.find('#contract_purchase_cost>p')
+							.text(parseFloat(dummySelector('#contract_purchase_cost>p')
 									.text())
 								.toFixed(2));
 						if (lost) {
@@ -454,14 +422,32 @@ var addParameter = function addParameter(searchString, parameterName) {
 								.attr('class', 'grd-grid-12 grd-with-top-padding standout profit');
 						}
 						$('#bet-confirm-header')
-							.text($('#dummyNewPage')
-								.contents()
-								.find('#contract_purchase_heading')
+							.text(dummySelector('#contract_purchase_heading')
 								.text());
 						broadcast('purchaseFinished');
 					});
 				}
 			});
+		},
+		function elementsAdded() {
+			broadcast('elementsAdded');
+			if (!unsafeWindow.runUnitTest) {
+				$('body')
+					.append('<div style="position: fixed; left: 0px; top: 0px; height: 100%; width: 100%; opacity: 0.5; background-color: black;" id="notification-background"></div>')
+					.append('<div id="notification-box" style="position: absolute; left: 35%; top: 35%; width: 300px; height:150px; background-color: white;"></div>');
+				$('#notification-box')
+					.append('<div style="position: absolute; top: 0px; right: 0px;"><a href="">X</a></div>');
+				$('#notification-box a')
+					.click(function (e) {
+						e.preventDefault();
+						$('#notification-background')
+							.remove();
+						$('#notification-box')
+							.remove();
+					});
+				$('#notification-box')
+					.append('<div style="width: 100%; text-align: center; position: absolute; top: 75px;">Legacy Elements are Ready</div>');
+			}
 		},
 	];
 
@@ -486,7 +472,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 				if (contractReady) {
 					newElement.click();
 				} else {
-					var click = function click() {
+					var click = function click(e) {
 						newElement.click();
 						window.removeEventListener('contractReady', click);
 					};
@@ -537,19 +523,13 @@ var addParameter = function addParameter(searchString, parameterName) {
 				.attr('style')
 				.indexOf('display: none') > -1;
 		}, function callback(mutations) {
-			var duration_units = $('#dummyNewPage')
-				.contents()
-				.find('#duration_units');
+			var duration_units = dummySelector('#duration_units');
 			duration_units.val('t');
 			triggerChange(duration_units[0]);
-			var expiry_type = $('#dummyNewPage')
-				.contents()
-				.find('#expiry_type');
+			var expiry_type = dummySelector('#expiry_type');
 			expiry_type.val('duration');
 			triggerChange(duration_units[0]);
-			var contract_markets = $('#dummyNewPage')
-				.contents()
-				.find('#contract_markets');
+			var contract_markets = dummySelector('#contract_markets');
 			contract_markets.val('random');
 			triggerChange(contract_markets[0]);
 			onReady('#loading_container3', function condition(mutations) {

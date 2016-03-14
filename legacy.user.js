@@ -163,33 +163,26 @@ var addParameter = function addParameter(searchString, parameterName) {
 				triggerChange(newElement[0]);
 			});
 		newElement[0].addEventListener('input', function (event) {
-			event.preventDefault();
-			newElement.val($(legacySelector)
-				.val());
+			$(legacySelector)
+				.val(newElement.val());
 		});
 		newElement[0].addEventListener('change', function (event) {
-			event.preventDefault();
-			newElement.val($(legacySelector)
-				.val());
+			$(legacySelector)
+				.val(newElement.val());
 		});
 	};
 
 	var syncElement = function syncElement(eventType, legacySelector, newSelector) {
 		var newElement = dummySelector(newSelector);
-
-		if (eventType !== null) {
-			$(legacySelector)
-				.val(newElement.val());
-			addEventRedirection(eventType, legacySelector, newElement);
-		} else {
-			newElement.val($(legacySelector)
-				.val());
-		}
+		$(legacySelector)
+			.val(newElement.val());
+		addEventRedirection(eventType, legacySelector, newElement);
 	};
 
 	var cloneElement = function cloneElement(selector) {
 		var newElement = dummySelector(selector);
 		var callback = function callback(mutations) {
+			var newElement = dummySelector(selector);
 			var dummyElement = $(selector);
 			var prevElement = dummyElement.prev();
 			var parentElement = dummyElement.parent();
@@ -247,6 +240,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 			var purchase_button_top = dummySelector('#purchase_button_top');
 			addClickRedirection(selectors.btn_buybet_10, purchase_button_top);
 			addObserver(purchase_button_top[0], observeStyleConfig, null, function (mutations) {
+				var purchase_button_top = dummySelector('#purchase_button_top');
 				if (purchase_button_top.attr('style')
 					.indexOf('display: none') > -1) {
 					$('.price_box_first #bet_cal_buy')
@@ -261,6 +255,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 			var purchase_button_bottom = dummySelector('#purchase_button_bottom');
 			addClickRedirection(selectors.btn_buybet_20, purchase_button_bottom);
 			addObserver(purchase_button_bottom[0], observeStyleConfig, null, function (mutations) {
+				var purchase_button_bottom = dummySelector('#purchase_button_bottom');
 				if (purchase_button_bottom.attr('style')
 					.indexOf('display: none') > -1) {
 					$('.price_box_last #bet_cal_buy')
@@ -308,16 +303,12 @@ var addParameter = function addParameter(searchString, parameterName) {
 		function spot() {
 			var newElement = dummySelector('#spot');
 			var callback = function callback() {
-				if (newElement.text()
-					.length !== 0) {
-					$(selectors.spot)
-						.text(newElement.text());
-					if (newElement.attr('class') !== undefined) {
-						$(selectors.spot)
-							.attr('class', newElement.attr('class'));
-					}
-					broadcast('spotChanged');
-				}
+				var newElement = dummySelector('#spot');
+				$(selectors.spot)
+					.text(newElement.text());
+				$(selectors.spot)
+					.attr('class', newElement.attr('class'));
+				broadcast('spotChanged');
 			};
 			callback();
 			addObserver(newElement[0], {
@@ -341,21 +332,9 @@ var addParameter = function addParameter(searchString, parameterName) {
 				});
 		},
 		function resync() {
-			var loading_container3 = dummySelector('#loading_container3');
-			var callback = function callback() {
-				syncElement(null, selectors.bet_underlying, '#underlying');
-				syncElement(null, selectors.amount, '#amount');
-				syncElement(null, selectors.duration_amount, '#duration_amount');
-				syncElement(null, selectors.amount_type, '#amount_type');
-				syncElement(null, selectors.duration_units, '#duration_units');
-				syncElement(null, selectors.expiry_type, '#expiry_type');
-				syncElement(null, selectors.bet_currency, '#currency');
-				syncElement(null, selectors.atleast, '#date_start');
-			};
-			callback();
-			addObserver(loading_container3[0], observeStyleConfig, null, callback);
 			var loading_container2 = dummySelector('#loading_container2');
 			addObserver(loading_container2[0], observeStyleConfig, null, function callback(mutations) {
+				var loading_container2 = dummySelector('#loading_container2');
 				if (loading_container2.attr('style')
 					.indexOf('display: none') > -1 && loading_container2.attr('style') === mutations[0].oldValue) {
 					broadcast('contractReady');
@@ -370,11 +349,10 @@ var addParameter = function addParameter(searchString, parameterName) {
 		function confirmation() {
 			var newElement = dummySelector('#contract_confirmation_container');
 			addObserver(newElement[0], observeStyleConfig, null, function callback(mutations) {
-				if (mutations && mutations[0].oldValue !== $(mutations[0].target)
-					.attr('style')) {
-					if ($(mutations[0].target)
-						.attr('style')
-						.indexOf('display: none') > -1) {
+				var newElement = dummySelector('#contract_confirmation_container');
+				var style = newElement.attr('style');
+				if (mutations && mutations[0].oldValue !== style) {
+					if (style.indexOf('display: none') > -1) {
 						confirmationCtrl.hide();
 						broadcast('confirmationClosed');
 					} else {
@@ -390,11 +368,11 @@ var addParameter = function addParameter(searchString, parameterName) {
 							.text('');
 					}
 					onReady('#contract_purchase_heading', function condition(mutations) {
-						return $(mutations[0].target)
-							.text()
+						var contract_purchase_heading = dummySelector('#contract_purchase_heading');
+						return contract_purchase_heading.text()
 							.indexOf('This contract') > -1;
 					}, function callback(mutations) {
-						var header = $(mutations[0].target);
+						var header = dummySelector('#contract_purchase_heading');
 						var lost = false;
 						if (header.text()
 							.indexOf('This contract lost') > -1) {
@@ -524,24 +502,24 @@ var addParameter = function addParameter(searchString, parameterName) {
 		addDummyNewPage();
 
 		onReady('#trading_init_progress', function condition(mutations) {
-			return $(mutations[0].target)
-				.attr('style')
+			var trading_init_progress = dummySelector('#trading_init_progress');
+			return trading_init_progress.attr('style')
 				.indexOf('display: none') > -1;
 		}, function callback(mutations) {
-			var duration_units = dummySelector('#duration_units');
-			duration_units.val('t');
-			triggerChange(duration_units[0]);
-			var expiry_type = dummySelector('#expiry_type');
-			expiry_type.val('duration');
-			triggerChange(duration_units[0]);
 			var contract_markets = dummySelector('#contract_markets');
 			contract_markets.val('random');
 			triggerChange(contract_markets[0]);
 			onReady('#loading_container3', function condition(mutations) {
-				return $(mutations[0].target)
-					.attr('style')
+				var loading_container3 = dummySelector('#loading_container3');
+				return loading_container3.attr('style')
 					.indexOf('display: none') > -1;
 			}, function callback(mutations) {
+				var duration_units = dummySelector('#duration_units');
+				duration_units.val('t');
+				triggerChange(duration_units[0]);
+				var expiry_type = dummySelector('#expiry_type');
+				expiry_type.val('duration');
+				triggerChange(duration_units[0]);
 				injectLegacyElements();
 			});
 		});

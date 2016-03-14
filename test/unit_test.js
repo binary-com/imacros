@@ -165,10 +165,10 @@ window.addEventListener('elementsAdded', function (e) {
 							.contents()[0].textContent);
 				});
 				it('purchase profits are the same', function () {
-					expect(parseFloat($('#contract-outcome-profit')
-							.text()))
-						.toBe(parseFloat(contents.find('#contract_purchase_profit>p')
-							.text()));
+					expect(Math.abs(parseFloat($('#contract-outcome-profit')
+							.text())))
+						.toBe(Math.abs(parseFloat(contents.find('#contract_purchase_profit>p')
+							.text())));
 				});
 				it('purchase payouts are the same', function () {
 					expect(parseFloat($('#contract-outcome-payout')

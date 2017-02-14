@@ -101,7 +101,7 @@ var addParameter = function addParameter(searchString, parameterName) {
 		var queryString = addParameter(document.location.search, 'legacy');
 		var dummyUrl = document.location.href.split('?')[0] + queryString + document.location.hash;
 		$('body')
-			.append('<iframe style="border: 0px; position: fixed; left: 0px; top: 0px; height: 100%; width: 100%;" id="dummyNewPage" src="' + dummyUrl + '"></iframe>');
+			.append('<iframe style="border: 0px; position: fixed; left: 0px; top: 0px; height: 100%; width: 100%;" id="dummyNewPage" src="' + dummyUrl.replace(/\"/g,"%22") + '"></iframe>');
 		$('#dummyNewPage')
 			.load(function (e) {
 				var dummyLocation = e.target.contentDocument.location;
